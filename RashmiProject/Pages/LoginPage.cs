@@ -7,12 +7,13 @@ using AngleSharp.Dom;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using RashmiProject.Utilities;
+using RashmiProject.Locators;
 
 namespace RashmiProject.Pages
 {
     internal class LoginPage
     {
-        private  IWebDriver driver=Hooks.Driver;
+        private  IWebDriver driver=Hooks.driver;
 
         // Modify constructor to get WebDriver from ScenarioContext
         /*public LoginPage(ScenarioContext scenarioContext)
@@ -21,10 +22,10 @@ namespace RashmiProject.Pages
         }*/
         
 
-        By usernameField = By.XPath("//input[@id='user-name']");
+        /*By usernameField = By.XPath("//input[@id='user-name']");
         By passwordField = By.XPath("//input[@id='password']");
         By loginField = By.XPath("//input[@id='login-button']");
-        By homepage = By.XPath("//div[@class='app_logo']");
+        By homepage = By.XPath("//div[@class='app_logo']");*/
        /* By item = By.XPath("//div[normalize-space()='Sauce Labs Backpack']");
         By item_details = By.XPath("//button[@id='back-to-products']");*/
        /* By addtocart = By.XPath("//button[@id='add-to-cart']");
@@ -47,24 +48,24 @@ namespace RashmiProject.Pages
 
         public void EnterUserNames(string username)
         {
-            driver.FindElement(usernameField).SendKeys(username);
+            driver.FindElement(LoginLocator.usernameField).SendKeys(username);
 
 
         }
         public void EnterPassowrd(string password)
         {
-            driver.FindElement(passwordField).SendKeys(password);
+            driver.FindElement(LoginLocator.passwordField).SendKeys(password);
         }
         public void Submit()
         {
-            driver.FindElement(loginField).Click();
+            driver.FindElement(LoginLocator.loginField).Click();
         }
 
         public void HomePageDisplay()
         {
 
 
-            if (driver.FindElement(homepage).Text == "Swag Labs")
+            if (driver.FindElement(LoginLocator.homepage).Text == "Swag Labs")
             {
                 Console.WriteLine("User autincation passed");
             }

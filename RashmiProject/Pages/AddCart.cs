@@ -5,30 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using RashmiProject.Utilities;
+using RashmiProject.Locators;
 
 namespace RashmiProject.Pages
 {
     internal class AddCart
     {
-        private IWebDriver driver = Hooks.Driver;
-        By addtocart = By.XPath("//button[@id='add-to-cart']");
+        private IWebDriver driver = Hooks.driver;
+        /*By addtocart = By.XPath("//button[@id='add-to-cart']");
         By cart = By.XPath("//a[@class='shopping_cart_link']");
-        By usercart = By.XPath("//span[@class='title']");
+        By usercart = By.XPath("//span[@class='title']");*/
 
         public void AddToCart()
         {
-            driver.FindElement(addtocart).Click();
+            driver.FindElement(AddtocartLocator.addtocart).Click();
         }
 
         public void Cart()
         {
-            driver.FindElement(cart).Click();
+            driver.FindElement( AddtocartLocator.cart).Click();
 
         }
 
         public void UserCart()
         {
-            if (driver.FindElement(usercart).Text == "Your Cart")
+            if (driver.FindElement(AddtocartLocator.usercart).Text == "Your Cart")
             {
                 Console.WriteLine("User In UserCArt");
             }

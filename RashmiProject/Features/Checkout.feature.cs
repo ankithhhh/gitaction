@@ -82,7 +82,7 @@ namespace RashmiProject.Features
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("firstname", firstname);
+            argumentsOfScenario.Add("Firstname", firstname);
             argumentsOfScenario.Add("lastname", lastname);
             argumentsOfScenario.Add("zipcode", zipcode);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User Address Details and Order", null, tagsOfScenario, argumentsOfScenario, featureTags);

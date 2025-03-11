@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\RashmiProject.csproj": {}
+    "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\RashmiProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\RashmiProject.csproj": {
+    "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\RashmiProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\RashmiProject.csproj",
+        "projectUniqueName": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\RashmiProject.csproj",
         "projectName": "RashmiProject",
-        "projectPath": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\RashmiProject.csproj",
-        "packagesPath": "C:\\Users\\sakum\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\obj\\",
+        "projectPath": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\RashmiProject.csproj",
+        "packagesPath": "C:\\Users\\anami\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\sakum\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\anami\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -50,17 +50,21 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "ExtentReports": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
             "FluentAssertions": {
               "target": "Package",
-              "version": "[6.2.0, )"
+              "version": "[8.0.1, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[17.0.0, )"
+              "version": "[17.13.0, )"
             },
             "NUnit3TestAdapter": {
               "target": "Package",
-              "version": "[4.1.0, )"
+              "version": "[5.0.0, )"
             },
             "Selenium.Support": {
               "target": "Package",
@@ -88,7 +92,7 @@
             },
             "nunit": {
               "target": "Package",
-              "version": "[3.13.2, )"
+              "version": "[4.3.2, )"
             }
           },
           "imports": [
@@ -102,26 +106,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,78 +1,110 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\",
+  "WorkspaceRootPath": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\stepdefinitions\\caddingcartstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\caddingcartstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\stepdefinitions\\checkoutstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\checkoutstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\stepdefinitions\\checkoutoverviewstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\checkoutoverviewstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\stepdefinitions\\loginpagesstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\loginpagesstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\stepdefinitions\\shoppingstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\shoppingstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\utilities\\hooks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\utilities\\hooks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\pages\\addcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\pages\\addcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\features\\addingcart.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\addingcart.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\run_tests.ps1||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\run_tests.ps1||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\features\\shoping.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\shoping.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\features\\loginpages.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\loginpages.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\features\\checkout.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\checkout.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\features\\checkoutoverview.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\checkoutoverview.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\pages\\checkoverviewpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\pages\\checkoverviewpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\pages\\checkoverviewpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\pages\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\pages\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\locators\\checkutoverviewlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\locators\\checkutoverviewlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\pages\\checkoutpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\locators\\loginlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\locators\\loginlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\locators\\checkoutlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\locators\\checkoutlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\locators\\itemlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\locators\\itemlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\pages\\checkoutpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\pages\\checkoutpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\pages\\itempage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\pages\\addcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\pages\\addcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\locators\\addtocartlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\locators\\addtocartlocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\pages\\itempage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\pages\\itempage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\sakum\\source\\repos\\rashmiproject\\rashmiproject\\test_order.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\stepdefinitions\\shoppingstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\shoppingstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\pages\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\pages\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\rashmiproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\rashmiproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\test_order.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\test_order.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\stepdefinitions\\checkoutoverviewstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\checkoutoverviewstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\utilities\\hooks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\utilities\\hooks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\stepdefinitions\\loginpagesstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\loginpagesstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\stepdefinitions\\checkoutstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\checkoutstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\stepdefinitions\\caddingcartstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\stepdefinitions\\caddingcartstepdefinitions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\features\\addingcart.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\addingcart.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\features\\checkoutoverview.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\checkoutoverview.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\features\\happyflow.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\happyflow.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\features\\loginpages.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\loginpages.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\features\\shoping.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\shoping.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\run_tests.bat||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\run_tests.bat||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\features\\checkout.feature||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\features\\checkout.feature||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|c:\\users\\anami\\downloads\\rashmiproject (3) 1\\rashmiproject\\rashmiproject\\run_tests.ps1||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{DECB7AEA-D58B-4DEF-A6B5-5AC16737877D}|RashmiProject\\RashmiProject.csproj|solutionrelative:rashmiproject\\run_tests.ps1||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -82,178 +114,263 @@
       "DocumentGroups": [
         {
           "DockedWidth": 356,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 20,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 22,
               "Title": "Shoping.feature",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\Shoping.feature",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\Shoping.feature",
               "RelativeDocumentMoniker": "RashmiProject\\Features\\Shoping.feature",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\Shoping.feature",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\Shoping.feature",
               "RelativeToolTip": "RashmiProject\\Features\\Shoping.feature",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAkAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAASFSURBVEhLjVVpbBVVFP7m7X1btS1dnqR00TZCKIhtA9WiQIiJBn9hfxRNEzEk9AclscQN40LSmNQuRiL\u002BEJSECDH6g5hgiRKLNi2WlAIPlEZrq3R7tLWvy\u002BvbZ/zuvOlbsDX9Jt/MOefOPefOOefekbAanHMBStRKyUIqkOCHzRrAniF1eEUoirJygCqLDmXGfFRbK6FDFS2FZDopk9PkEGSlBz8FrsIdHkW3X6HtP1g\u002BwPvkwzk1HH2F0kYykzSQSxDOwuQU2UetFbWey2LgfqQGeIDqRw85YAo3Uns7ZlwVFF51\u002BHzuK3zvD2k2FXrtGcONNDPuGespNZA2YbIbbNiRXQ2DpMdMyAurPg3Va7YiNy0bI4tj4hUBidcmbDYPwysPYCiimcHsJqPP\u002BRjvIkCWqhPP5O7AycoWvLm\u002BAWvMmdiSUYbj5U04VdHOySnT88l6vOzIiakxJN44km7iKo5TKiAlMVlc3vA8MkwPYltmOdbaXKjKqkCJvQjz4QVWW9Q7DgPn74ROegnWROYTKapKq4bL8BolSaThxYIX8IizCDe9v2I\u002B4oMv6kPHRKeaKovejGO/teEv393Y3ASE51IUGD9DV0CtRSxUmVmHQ\u002BnvwiYdFerWzMdxYfuXCMthdE52Y3/vq6yFFVPBaZjp3Gmw415oClE5qk6/Dwr6gk/hQ2\u002BXUGIpskt2Oi9SZeLGzG2cH\u002BuAh05K\u002BRUl9kJMBDyIKBH4\u002BDXjlFdwLiAWvSkmJmpgIsUuVeGXA6jvex0HehtRd\u002BUwrntvaSOpEEV3Gh2aloJ4k2gBFLGceG\u002BJnjtYXIejGxrw1vpDyEtLaQwV\u002Bwv34ey2E2o37crdrlnjiFc5FkCSFnkX21/Fk1mVaNr4Bnay/wvt\u002BVhgWsRKdewtg2SAjfUYXvwbJY5iPOvahS8q27WZcYxqT62LFESxwZwHp\u002B55oQYiIRh1Rlye7EHrwKdqi\u002B4r2IuB\u002BUEU2wtwuOQA\u002BmfcuOT5GXcXx3F\u002B9CKuzdxUXakYjzahO6AGSTTskXQXtlgGKZmFatFZGFdGriUHv\u002By\u002BgIAcRG3PQRQxwMmKFtblNp74YQ/0bNsoMywaQMM4rvmL0TwXEEpiozXPjjHcMUp\u002BoQZY6KAcosN8mPg1d\u002BYGMe734M\u002BFYQyx/9dZ1yLTnMF3gsnO6VRpWnIukHoW7XX8wfujpGhZdWw6OKO25bdjF\u002BGevaPqvy8M4buJS\u002Bj/x62echq4rXl8S/gAX/vmNFtSigSy\u002BEEf8yQDPiE3qzZCFJf/jrgzHacJKcm5AI9upRFZU2ewW46fIalfsMgJ3/hGYJa6UGpaR0sGaaajRCqJFLcx8CyR29E2ewrNkaBmU5EaYAnu0CRqHT\u002Byt8RhI/aIkxS/zJRAhIjlIU\u002BgzduO66F4apaQmqJkmDn0nFNCjdUJRS6jpYUsV8cSmCDfY5jT/KPFC5uMlQMk45wrj0HOcMFPU/ORI\u002BQV9Ida0Rm8hV6xT5fH6gKczRVnyzsMkM3nVTZMN04vuNHhn1fH/werDSBynw693o\u002Ba0WVTsTyAfwENCYeqQkKfxQAAAABJRU5ErkJggg==",
               "WhenOpened": "2025-02-10T04:16:37.721Z",
               "IsPinned": true
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:3:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
+              "Title": "CheckutOverviewLocator.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\CheckutOverviewLocator.cs",
+              "RelativeDocumentMoniker": "RashmiProject\\Locators\\CheckutOverviewLocator.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\CheckutOverviewLocator.cs",
+              "RelativeToolTip": "RashmiProject\\Locators\\CheckutOverviewLocator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T06:12:55.925Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CheckoutLocator.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\CheckoutLocator.cs",
+              "RelativeDocumentMoniker": "RashmiProject\\Locators\\CheckoutLocator.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\CheckoutLocator.cs",
+              "RelativeToolTip": "RashmiProject\\Locators\\CheckoutLocator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T05:22:40.644Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AddtocartLocator.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\AddtocartLocator.cs",
+              "RelativeDocumentMoniker": "RashmiProject\\Locators\\AddtocartLocator.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\AddtocartLocator.cs",
+              "RelativeToolTip": "RashmiProject\\Locators\\AddtocartLocator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T05:18:43.499Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ItemLocator.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\ItemLocator.cs",
+              "RelativeDocumentMoniker": "RashmiProject\\Locators\\ItemLocator.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\ItemLocator.cs",
+              "RelativeToolTip": "RashmiProject\\Locators\\ItemLocator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T05:06:03.179Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "run_tests.bat",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\run_tests.bat",
+              "RelativeDocumentMoniker": "RashmiProject\\run_tests.bat",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\run_tests.bat",
+              "RelativeToolTip": "RashmiProject\\run_tests.bat",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000614|",
+              "WhenOpened": "2025-02-19T05:17:52.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LoginLocator.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\LoginLocator.cs",
+              "RelativeDocumentMoniker": "RashmiProject\\Locators\\LoginLocator.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Locators\\LoginLocator.cs",
+              "RelativeToolTip": "RashmiProject\\Locators\\LoginLocator.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABwAAABqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T11:04:33.679Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RashmiProject.csproj",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\RashmiProject.csproj",
+              "RelativeDocumentMoniker": "RashmiProject\\RashmiProject.csproj",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\RashmiProject.csproj",
+              "RelativeToolTip": "RashmiProject\\RashmiProject.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-18T11:03:37.546Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Happyflow.feature",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\Happyflow.feature",
+              "RelativeDocumentMoniker": "RashmiProject\\Features\\Happyflow.feature",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\Happyflow.feature",
+              "RelativeToolTip": "RashmiProject\\Features\\Happyflow.feature",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAeAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAASFSURBVEhLjVVpbBVVFP7m7X1btS1dnqR00TZCKIhtA9WiQIiJBn9hfxRNEzEk9AclscQN40LSmNQuRiL\u002BEJSECDH6g5hgiRKLNi2WlAIPlEZrq3R7tLWvy\u002BvbZ/zuvOlbsDX9Jt/MOefOPefOOefekbAanHMBStRKyUIqkOCHzRrAniF1eEUoirJygCqLDmXGfFRbK6FDFS2FZDopk9PkEGSlBz8FrsIdHkW3X6HtP1g\u002BwPvkwzk1HH2F0kYykzSQSxDOwuQU2UetFbWey2LgfqQGeIDqRw85YAo3Uns7ZlwVFF51\u002BHzuK3zvD2k2FXrtGcONNDPuGespNZA2YbIbbNiRXQ2DpMdMyAurPg3Va7YiNy0bI4tj4hUBidcmbDYPwysPYCiimcHsJqPP\u002BRjvIkCWqhPP5O7AycoWvLm\u002BAWvMmdiSUYbj5U04VdHOySnT88l6vOzIiakxJN44km7iKo5TKiAlMVlc3vA8MkwPYltmOdbaXKjKqkCJvQjz4QVWW9Q7DgPn74ROegnWROYTKapKq4bL8BolSaThxYIX8IizCDe9v2I\u002B4oMv6kPHRKeaKovejGO/teEv393Y3ASE51IUGD9DV0CtRSxUmVmHQ\u002BnvwiYdFerWzMdxYfuXCMthdE52Y3/vq6yFFVPBaZjp3Gmw415oClE5qk6/Dwr6gk/hQ2\u002BXUGIpskt2Oi9SZeLGzG2cH\u002BuAh05K\u002BRUl9kJMBDyIKBH4\u002BDXjlFdwLiAWvSkmJmpgIsUuVeGXA6jvex0HehtRd\u002BUwrntvaSOpEEV3Gh2aloJ4k2gBFLGceG\u002BJnjtYXIejGxrw1vpDyEtLaQwV\u002Bwv34ey2E2o37crdrlnjiFc5FkCSFnkX21/Fk1mVaNr4Bnay/wvt\u002BVhgWsRKdewtg2SAjfUYXvwbJY5iPOvahS8q27WZcYxqT62LFESxwZwHp\u002B55oQYiIRh1Rlye7EHrwKdqi\u002B4r2IuB\u002BUEU2wtwuOQA\u002BmfcuOT5GXcXx3F\u002B9CKuzdxUXakYjzahO6AGSTTskXQXtlgGKZmFatFZGFdGriUHv\u002By\u002BgIAcRG3PQRQxwMmKFtblNp74YQ/0bNsoMywaQMM4rvmL0TwXEEpiozXPjjHcMUp\u002BoQZY6KAcosN8mPg1d\u002BYGMe734M\u002BFYQyx/9dZ1yLTnMF3gsnO6VRpWnIukHoW7XX8wfujpGhZdWw6OKO25bdjF\u002BGevaPqvy8M4buJS\u002Bj/x62echq4rXl8S/gAX/vmNFtSigSy\u002BEEf8yQDPiE3qzZCFJf/jrgzHacJKcm5AI9upRFZU2ewW46fIalfsMgJ3/hGYJa6UGpaR0sGaaajRCqJFLcx8CyR29E2ewrNkaBmU5EaYAnu0CRqHT\u002Byt8RhI/aIkxS/zJRAhIjlIU\u002BgzduO66F4apaQmqJkmDn0nFNCjdUJRS6jpYUsV8cSmCDfY5jT/KPFC5uMlQMk45wrj0HOcMFPU/ORI\u002BQV9Ida0Rm8hV6xT5fH6gKczRVnyzsMkM3nVTZMN04vuNHhn1fH/werDSBynw693o\u002Ba0WVTsTyAfwENCYeqQkKfxQAAAABJRU5ErkJggg==",
+              "WhenOpened": "2025-02-18T09:48:20.881Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
               "Title": "run_tests.ps1",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\run_tests.ps1",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\run_tests.ps1",
               "RelativeDocumentMoniker": "RashmiProject\\run_tests.ps1",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\run_tests.ps1",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\run_tests.ps1",
               "RelativeToolTip": "RashmiProject\\run_tests.ps1",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-02-12T18:03:00.205Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-12T18:03:00.205Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 12,
               "Title": "test_order.json",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\test_order.json",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\test_order.json",
               "RelativeDocumentMoniker": "RashmiProject\\test_order.json",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\test_order.json",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\test_order.json",
               "RelativeToolTip": "RashmiProject\\test_order.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-02-11T07:12:19.858Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 14,
               "Title": "Hooks.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Utilities\\Hooks.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Utilities\\Hooks.cs",
               "RelativeDocumentMoniker": "RashmiProject\\Utilities\\Hooks.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Utilities\\Hooks.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Utilities\\Hooks.cs",
               "RelativeToolTip": "RashmiProject\\Utilities\\Hooks.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACQAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwEUAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T06:16:54.841Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T06:16:54.841Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 13,
               "Title": "CheckoutOverviewStepDefinitions.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\CheckoutOverviewStepDefinitions.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\CheckoutOverviewStepDefinitions.cs",
               "RelativeDocumentMoniker": "RashmiProject\\StepDefinitions\\CheckoutOverviewStepDefinitions.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\CheckoutOverviewStepDefinitions.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\CheckoutOverviewStepDefinitions.cs",
               "RelativeToolTip": "RashmiProject\\StepDefinitions\\CheckoutOverviewStepDefinitions.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T04:45:22.329Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T04:45:22.329Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 16,
               "Title": "CheckoutStepDefinitions.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\CheckoutStepDefinitions.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\CheckoutStepDefinitions.cs",
               "RelativeDocumentMoniker": "RashmiProject\\StepDefinitions\\CheckoutStepDefinitions.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\CheckoutStepDefinitions.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\CheckoutStepDefinitions.cs",
               "RelativeToolTip": "RashmiProject\\StepDefinitions\\CheckoutStepDefinitions.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T04:45:14.568Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T04:45:14.568Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 17,
               "Title": "CAddingcartStepDefinitions.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\CAddingcartStepDefinitions.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\CAddingcartStepDefinitions.cs",
               "RelativeDocumentMoniker": "RashmiProject\\StepDefinitions\\CAddingcartStepDefinitions.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\CAddingcartStepDefinitions.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\CAddingcartStepDefinitions.cs",
               "RelativeToolTip": "RashmiProject\\StepDefinitions\\CAddingcartStepDefinitions.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAzwBYAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T04:45:07.156Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T04:45:07.156Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "ShoppingStepDefinitions.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\ShoppingStepDefinitions.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\ShoppingStepDefinitions.cs",
               "RelativeDocumentMoniker": "RashmiProject\\StepDefinitions\\ShoppingStepDefinitions.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\ShoppingStepDefinitions.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\ShoppingStepDefinitions.cs",
               "RelativeToolTip": "RashmiProject\\StepDefinitions\\ShoppingStepDefinitions.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T04:44:54.395Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T04:44:54.395Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 15,
               "Title": "LoginPagesStepDefinitions.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\LoginPagesStepDefinitions.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\LoginPagesStepDefinitions.cs",
               "RelativeDocumentMoniker": "RashmiProject\\StepDefinitions\\LoginPagesStepDefinitions.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\StepDefinitions\\LoginPagesStepDefinitions.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\StepDefinitions\\LoginPagesStepDefinitions.cs",
               "RelativeToolTip": "RashmiProject\\StepDefinitions\\LoginPagesStepDefinitions.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAQwB8AAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T04:44:45.556Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T04:44:45.556Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 19,
               "Title": "CheckoutOverview.feature",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\CheckoutOverview.feature",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\CheckoutOverview.feature",
               "RelativeDocumentMoniker": "RashmiProject\\Features\\CheckoutOverview.feature",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\CheckoutOverview.feature",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\CheckoutOverview.feature",
               "RelativeToolTip": "RashmiProject\\Features\\CheckoutOverview.feature",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAASFSURBVEhLjVVpbBVVFP7m7X1btS1dnqR00TZCKIhtA9WiQIiJBn9hfxRNEzEk9AclscQN40LSmNQuRiL\u002BEJSECDH6g5hgiRKLNi2WlAIPlEZrq3R7tLWvy\u002BvbZ/zuvOlbsDX9Jt/MOefOPefOOefekbAanHMBStRKyUIqkOCHzRrAniF1eEUoirJygCqLDmXGfFRbK6FDFS2FZDopk9PkEGSlBz8FrsIdHkW3X6HtP1g\u002BwPvkwzk1HH2F0kYykzSQSxDOwuQU2UetFbWey2LgfqQGeIDqRw85YAo3Uns7ZlwVFF51\u002BHzuK3zvD2k2FXrtGcONNDPuGespNZA2YbIbbNiRXQ2DpMdMyAurPg3Va7YiNy0bI4tj4hUBidcmbDYPwysPYCiimcHsJqPP\u002BRjvIkCWqhPP5O7AycoWvLm\u002BAWvMmdiSUYbj5U04VdHOySnT88l6vOzIiakxJN44km7iKo5TKiAlMVlc3vA8MkwPYltmOdbaXKjKqkCJvQjz4QVWW9Q7DgPn74ROegnWROYTKapKq4bL8BolSaThxYIX8IizCDe9v2I\u002B4oMv6kPHRKeaKovejGO/teEv393Y3ASE51IUGD9DV0CtRSxUmVmHQ\u002BnvwiYdFerWzMdxYfuXCMthdE52Y3/vq6yFFVPBaZjp3Gmw415oClE5qk6/Dwr6gk/hQ2\u002BXUGIpskt2Oi9SZeLGzG2cH\u002BuAh05K\u002BRUl9kJMBDyIKBH4\u002BDXjlFdwLiAWvSkmJmpgIsUuVeGXA6jvex0HehtRd\u002BUwrntvaSOpEEV3Gh2aloJ4k2gBFLGceG\u002BJnjtYXIejGxrw1vpDyEtLaQwV\u002Bwv34ey2E2o37crdrlnjiFc5FkCSFnkX21/Fk1mVaNr4Bnay/wvt\u002BVhgWsRKdewtg2SAjfUYXvwbJY5iPOvahS8q27WZcYxqT62LFESxwZwHp\u002B55oQYiIRh1Rlye7EHrwKdqi\u002B4r2IuB\u002BUEU2wtwuOQA\u002BmfcuOT5GXcXx3F\u002B9CKuzdxUXakYjzahO6AGSTTskXQXtlgGKZmFatFZGFdGriUHv\u002By\u002BgIAcRG3PQRQxwMmKFtblNp74YQ/0bNsoMywaQMM4rvmL0TwXEEpiozXPjjHcMUp\u002BoQZY6KAcosN8mPg1d\u002BYGMe734M\u002BFYQyx/9dZ1yLTnMF3gsnO6VRpWnIukHoW7XX8wfujpGhZdWw6OKO25bdjF\u002BGevaPqvy8M4buJS\u002Bj/x62echq4rXl8S/gAX/vmNFtSigSy\u002BEEf8yQDPiE3qzZCFJf/jrgzHacJKcm5AI9upRFZU2ewW46fIalfsMgJ3/hGYJa6UGpaR0sGaaajRCqJFLcx8CyR29E2ewrNkaBmU5EaYAnu0CRqHT\u002Byt8RhI/aIkxS/zJRAhIjlIU\u002BgzduO66F4apaQmqJkmDn0nFNCjdUJRS6jpYUsV8cSmCDfY5jT/KPFC5uMlQMk45wrj0HOcMFPU/ORI\u002BQV9Ida0Rm8hV6xT5fH6gKczRVnyzsMkM3nVTZMN04vuNHhn1fH/werDSBynw693o\u002Ba0WVTsTyAfwENCYeqQkKfxQAAAABJRU5ErkJggg==",
               "WhenOpened": "2025-02-11T04:44:09.687Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 18,
               "Title": "Addingcart.feature",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\Addingcart.feature",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\Addingcart.feature",
               "RelativeDocumentMoniker": "RashmiProject\\Features\\Addingcart.feature",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\Addingcart.feature",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\Addingcart.feature",
               "RelativeToolTip": "RashmiProject\\Features\\Addingcart.feature",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAASFSURBVEhLjVVpbBVVFP7m7X1btS1dnqR00TZCKIhtA9WiQIiJBn9hfxRNEzEk9AclscQN40LSmNQuRiL\u002BEJSECDH6g5hgiRKLNi2WlAIPlEZrq3R7tLWvy\u002BvbZ/zuvOlbsDX9Jt/MOefOPefOOefekbAanHMBStRKyUIqkOCHzRrAniF1eEUoirJygCqLDmXGfFRbK6FDFS2FZDopk9PkEGSlBz8FrsIdHkW3X6HtP1g\u002BwPvkwzk1HH2F0kYykzSQSxDOwuQU2UetFbWey2LgfqQGeIDqRw85YAo3Uns7ZlwVFF51\u002BHzuK3zvD2k2FXrtGcONNDPuGespNZA2YbIbbNiRXQ2DpMdMyAurPg3Va7YiNy0bI4tj4hUBidcmbDYPwysPYCiimcHsJqPP\u002BRjvIkCWqhPP5O7AycoWvLm\u002BAWvMmdiSUYbj5U04VdHOySnT88l6vOzIiakxJN44km7iKo5TKiAlMVlc3vA8MkwPYltmOdbaXKjKqkCJvQjz4QVWW9Q7DgPn74ROegnWROYTKapKq4bL8BolSaThxYIX8IizCDe9v2I\u002B4oMv6kPHRKeaKovejGO/teEv393Y3ASE51IUGD9DV0CtRSxUmVmHQ\u002BnvwiYdFerWzMdxYfuXCMthdE52Y3/vq6yFFVPBaZjp3Gmw415oClE5qk6/Dwr6gk/hQ2\u002BXUGIpskt2Oi9SZeLGzG2cH\u002BuAh05K\u002BRUl9kJMBDyIKBH4\u002BDXjlFdwLiAWvSkmJmpgIsUuVeGXA6jvex0HehtRd\u002BUwrntvaSOpEEV3Gh2aloJ4k2gBFLGceG\u002BJnjtYXIejGxrw1vpDyEtLaQwV\u002Bwv34ey2E2o37crdrlnjiFc5FkCSFnkX21/Fk1mVaNr4Bnay/wvt\u002BVhgWsRKdewtg2SAjfUYXvwbJY5iPOvahS8q27WZcYxqT62LFESxwZwHp\u002B55oQYiIRh1Rlye7EHrwKdqi\u002B4r2IuB\u002BUEU2wtwuOQA\u002BmfcuOT5GXcXx3F\u002B9CKuzdxUXakYjzahO6AGSTTskXQXtlgGKZmFatFZGFdGriUHv\u002By\u002BgIAcRG3PQRQxwMmKFtblNp74YQ/0bNsoMywaQMM4rvmL0TwXEEpiozXPjjHcMUp\u002BoQZY6KAcosN8mPg1d\u002BYGMe734M\u002BFYQyx/9dZ1yLTnMF3gsnO6VRpWnIukHoW7XX8wfujpGhZdWw6OKO25bdjF\u002BGevaPqvy8M4buJS\u002Bj/x62echq4rXl8S/gAX/vmNFtSigSy\u002BEEf8yQDPiE3qzZCFJf/jrgzHacJKcm5AI9upRFZU2ewW46fIalfsMgJ3/hGYJa6UGpaR0sGaaajRCqJFLcx8CyR29E2ewrNkaBmU5EaYAnu0CRqHT\u002Byt8RhI/aIkxS/zJRAhIjlIU\u002BgzduO66F4apaQmqJkmDn0nFNCjdUJRS6jpYUsV8cSmCDfY5jT/KPFC5uMlQMk45wrj0HOcMFPU/ORI\u002BQV9Ida0Rm8hV6xT5fH6gKczRVnyzsMkM3nVTZMN04vuNHhn1fH/werDSBynw693o\u002Ba0WVTsTyAfwENCYeqQkKfxQAAAABJRU5ErkJggg==",
-              "WhenOpened": "2025-02-11T04:38:57.379Z",
+              "WhenOpened": "2025-02-11T04:38:57.379Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CheckOverviewPage.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\CheckOverviewPage.cs",
+              "RelativeDocumentMoniker": "RashmiProject\\Pages\\CheckOverviewPage.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\CheckOverviewPage.cs",
+              "RelativeToolTip": "RashmiProject\\Pages\\CheckOverviewPage.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAqwAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T04:42:02.279Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CheckOverviewPage.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\CheckOverviewPage.cs",
-              "RelativeDocumentMoniker": "RashmiProject\\Pages\\CheckOverviewPage.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\CheckOverviewPage.cs",
-              "RelativeToolTip": "RashmiProject\\Pages\\CheckOverviewPage.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAC8AAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T04:42:02.279Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 5,
               "Title": "CheckOutPage.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\CheckOutPage.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\CheckOutPage.cs",
               "RelativeDocumentMoniker": "RashmiProject\\Pages\\CheckOutPage.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\CheckOutPage.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\CheckOutPage.cs",
               "RelativeToolTip": "RashmiProject\\Pages\\CheckOutPage.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAQwCcAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-11T04:39:47.126Z"
             },
@@ -261,84 +378,61 @@
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "AddCart.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\AddCart.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\AddCart.cs",
               "RelativeDocumentMoniker": "RashmiProject\\Pages\\AddCart.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\AddCart.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\AddCart.cs",
               "RelativeToolTip": "RashmiProject\\Pages\\AddCart.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABkAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T04:37:41.42Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T04:37:41.42Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 8,
               "Title": "ItemPage.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\ItemPage.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\ItemPage.cs",
               "RelativeDocumentMoniker": "RashmiProject\\Pages\\ItemPage.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\ItemPage.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\ItemPage.cs",
               "RelativeToolTip": "RashmiProject\\Pages\\ItemPage.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAQwAcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-11T04:32:20.76Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 10,
               "Title": "LoginPage.cs",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\LoginPage.cs",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\LoginPage.cs",
               "RelativeDocumentMoniker": "RashmiProject\\Pages\\LoginPage.cs",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Pages\\LoginPage.cs",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Pages\\LoginPage.cs",
               "RelativeToolTip": "RashmiProject\\Pages\\LoginPage.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAAAEkAAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-10T04:26:50.784Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 21,
               "Title": "LoginPages.feature",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\LoginPages.feature",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\LoginPages.feature",
               "RelativeDocumentMoniker": "RashmiProject\\Features\\LoginPages.feature",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\LoginPages.feature",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\LoginPages.feature",
               "RelativeToolTip": "RashmiProject\\Features\\LoginPages.feature",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAdAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAASFSURBVEhLjVVpbBVVFP7m7X1btS1dnqR00TZCKIhtA9WiQIiJBn9hfxRNEzEk9AclscQN40LSmNQuRiL\u002BEJSECDH6g5hgiRKLNi2WlAIPlEZrq3R7tLWvy\u002BvbZ/zuvOlbsDX9Jt/MOefOPefOOefekbAanHMBStRKyUIqkOCHzRrAniF1eEUoirJygCqLDmXGfFRbK6FDFS2FZDopk9PkEGSlBz8FrsIdHkW3X6HtP1g\u002BwPvkwzk1HH2F0kYykzSQSxDOwuQU2UetFbWey2LgfqQGeIDqRw85YAo3Uns7ZlwVFF51\u002BHzuK3zvD2k2FXrtGcONNDPuGespNZA2YbIbbNiRXQ2DpMdMyAurPg3Va7YiNy0bI4tj4hUBidcmbDYPwysPYCiimcHsJqPP\u002BRjvIkCWqhPP5O7AycoWvLm\u002BAWvMmdiSUYbj5U04VdHOySnT88l6vOzIiakxJN44km7iKo5TKiAlMVlc3vA8MkwPYltmOdbaXKjKqkCJvQjz4QVWW9Q7DgPn74ROegnWROYTKapKq4bL8BolSaThxYIX8IizCDe9v2I\u002B4oMv6kPHRKeaKovejGO/teEv393Y3ASE51IUGD9DV0CtRSxUmVmHQ\u002BnvwiYdFerWzMdxYfuXCMthdE52Y3/vq6yFFVPBaZjp3Gmw415oClE5qk6/Dwr6gk/hQ2\u002BXUGIpskt2Oi9SZeLGzG2cH\u002BuAh05K\u002BRUl9kJMBDyIKBH4\u002BDXjlFdwLiAWvSkmJmpgIsUuVeGXA6jvex0HehtRd\u002BUwrntvaSOpEEV3Gh2aloJ4k2gBFLGceG\u002BJnjtYXIejGxrw1vpDyEtLaQwV\u002Bwv34ey2E2o37crdrlnjiFc5FkCSFnkX21/Fk1mVaNr4Bnay/wvt\u002BVhgWsRKdewtg2SAjfUYXvwbJY5iPOvahS8q27WZcYxqT62LFESxwZwHp\u002B55oQYiIRh1Rlye7EHrwKdqi\u002B4r2IuB\u002BUEU2wtwuOQA\u002BmfcuOT5GXcXx3F\u002B9CKuzdxUXakYjzahO6AGSTTskXQXtlgGKZmFatFZGFdGriUHv\u002By\u002BgIAcRG3PQRQxwMmKFtblNp74YQ/0bNsoMywaQMM4rvmL0TwXEEpiozXPjjHcMUp\u002BoQZY6KAcosN8mPg1d\u002BYGMe734M\u002BFYQyx/9dZ1yLTnMF3gsnO6VRpWnIukHoW7XX8wfujpGhZdWw6OKO25bdjF\u002BGevaPqvy8M4buJS\u002Bj/x62echq4rXl8S/gAX/vmNFtSigSy\u002BEEf8yQDPiE3qzZCFJf/jrgzHacJKcm5AI9upRFZU2ewW46fIalfsMgJ3/hGYJa6UGpaR0sGaaajRCqJFLcx8CyR29E2ewrNkaBmU5EaYAnu0CRqHT\u002Byt8RhI/aIkxS/zJRAhIjlIU\u002BgzduO66F4apaQmqJkmDn0nFNCjdUJRS6jpYUsV8cSmCDfY5jT/KPFC5uMlQMk45wrj0HOcMFPU/ORI\u002BQV9Ida0Rm8hV6xT5fH6gKczRVnyzsMkM3nVTZMN04vuNHhn1fH/werDSBynw693o\u002Ba0WVTsTyAfwENCYeqQkKfxQAAAABJRU5ErkJggg==",
               "WhenOpened": "2025-02-08T18:29:08.061Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 24,
               "Title": "Checkout.feature",
-              "DocumentMoniker": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\Checkout.feature",
+              "DocumentMoniker": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\Checkout.feature",
               "RelativeDocumentMoniker": "RashmiProject\\Features\\Checkout.feature",
-              "ToolTip": "C:\\Users\\sakum\\source\\repos\\RashmiProject\\RashmiProject\\Features\\Checkout.feature",
+              "ToolTip": "C:\\Users\\anami\\Downloads\\RashmiProject (3) 1\\RashmiProject\\RashmiProject\\Features\\Checkout.feature",
               "RelativeToolTip": "RashmiProject\\Features\\Checkout.feature",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAHAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAASFSURBVEhLjVVpbBVVFP7m7X1btS1dnqR00TZCKIhtA9WiQIiJBn9hfxRNEzEk9AclscQN40LSmNQuRiL\u002BEJSECDH6g5hgiRKLNi2WlAIPlEZrq3R7tLWvy\u002BvbZ/zuvOlbsDX9Jt/MOefOPefOOefekbAanHMBStRKyUIqkOCHzRrAniF1eEUoirJygCqLDmXGfFRbK6FDFS2FZDopk9PkEGSlBz8FrsIdHkW3X6HtP1g\u002BwPvkwzk1HH2F0kYykzSQSxDOwuQU2UetFbWey2LgfqQGeIDqRw85YAo3Uns7ZlwVFF51\u002BHzuK3zvD2k2FXrtGcONNDPuGespNZA2YbIbbNiRXQ2DpMdMyAurPg3Va7YiNy0bI4tj4hUBidcmbDYPwysPYCiimcHsJqPP\u002BRjvIkCWqhPP5O7AycoWvLm\u002BAWvMmdiSUYbj5U04VdHOySnT88l6vOzIiakxJN44km7iKo5TKiAlMVlc3vA8MkwPYltmOdbaXKjKqkCJvQjz4QVWW9Q7DgPn74ROegnWROYTKapKq4bL8BolSaThxYIX8IizCDe9v2I\u002B4oMv6kPHRKeaKovejGO/teEv393Y3ASE51IUGD9DV0CtRSxUmVmHQ\u002BnvwiYdFerWzMdxYfuXCMthdE52Y3/vq6yFFVPBaZjp3Gmw415oClE5qk6/Dwr6gk/hQ2\u002BXUGIpskt2Oi9SZeLGzG2cH\u002BuAh05K\u002BRUl9kJMBDyIKBH4\u002BDXjlFdwLiAWvSkmJmpgIsUuVeGXA6jvex0HehtRd\u002BUwrntvaSOpEEV3Gh2aloJ4k2gBFLGceG\u002BJnjtYXIejGxrw1vpDyEtLaQwV\u002Bwv34ey2E2o37crdrlnjiFc5FkCSFnkX21/Fk1mVaNr4Bnay/wvt\u002BVhgWsRKdewtg2SAjfUYXvwbJY5iPOvahS8q27WZcYxqT62LFESxwZwHp\u002B55oQYiIRh1Rlye7EHrwKdqi\u002B4r2IuB\u002BUEU2wtwuOQA\u002BmfcuOT5GXcXx3F\u002B9CKuzdxUXakYjzahO6AGSTTskXQXtlgGKZmFatFZGFdGriUHv\u002By\u002BgIAcRG3PQRQxwMmKFtblNp74YQ/0bNsoMywaQMM4rvmL0TwXEEpiozXPjjHcMUp\u002BoQZY6KAcosN8mPg1d\u002BYGMe734M\u002BFYQyx/9dZ1yLTnMF3gsnO6VRpWnIukHoW7XX8wfujpGhZdWw6OKO25bdjF\u002BGevaPqvy8M4buJS\u002Bj/x62echq4rXl8S/gAX/vmNFtSigSy\u002BEEf8yQDPiE3qzZCFJf/jrgzHacJKcm5AI9upRFZU2ewW46fIalfsMgJ3/hGYJa6UGpaR0sGaaajRCqJFLcx8CyR29E2ewrNkaBmU5EaYAnu0CRqHT\u002Byt8RhI/aIkxS/zJRAhIjlIU\u002BgzduO66F4apaQmqJkmDn0nFNCjdUJRS6jpYUsV8cSmCDfY5jT/KPFC5uMlQMk45wrj0HOcMFPU/ORI\u002BQV9Ida0Rm8hV6xT5fH6gKczRVnyzsMkM3nVTZMN04vuNHhn1fH/werDSBynw693o\u002Ba0WVTsTyAfwENCYeqQkKfxQAAAABJRU5ErkJggg==",
               "WhenOpened": "2025-02-10T04:17:00.638Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 233,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             }
           ]
         }
