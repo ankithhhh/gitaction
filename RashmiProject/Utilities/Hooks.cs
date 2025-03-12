@@ -7,6 +7,8 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace RashmiProject.Utilities
 {
@@ -105,7 +107,9 @@ namespace RashmiProject.Utilities
             _extent?.Flush();
         }
 
-        private string? CaptureScreenshot(string scenarioName, string stepName)
+        
+
+private string? CaptureScreenshot(string scenarioName, string stepName)
 {
     try
     {
@@ -118,18 +122,22 @@ namespace RashmiProject.Utilities
         Thread.Sleep(500); 
 
         Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+        using (MemoryStream ms = new MemoryStream(screenshot.AsByteArray))
+        {
+            using (Bitmap bitmap = new Bitmap(ms))
+            {
+                string screenshotFolder = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "Screenshots");
+                Directory.CreateDirectory(screenshotFolder);
 
-        string screenshotFolder = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "Screenshots");
-        Directory.CreateDirectory(screenshotFolder);
+                string sanitizedStepName = string.Join("_", stepName.Split(Path.GetInvalidFileNameChars()));
+                string filePath = Path.Combine(screenshotFolder, $"{scenarioName}_{sanitizedStepName}.png");
 
-        string sanitizedStepName = string.Join("_", stepName.Split(Path.GetInvalidFileNameChars()));
-        string filePath = Path.Combine(screenshotFolder, $"{scenarioName}_{sanitizedStepName}.png");
+                bitmap.Save(filePath, ImageFormat.Png);
+                TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
 
-        // ✅ FIX: Fully Qualify ScreenshotImageFormat to Avoid "Not Found" Error
-        screenshot.SaveAsFile(filePath, OpenQA.Selenium.ScreenshotImageFormat.Png);
-        TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
-
-        return filePath;
+                return filePath;
+            }
+        }
     }
     catch (Exception ex)
     {
@@ -137,6 +145,7 @@ namespace RashmiProject.Utilities
         return null;
     }
 }
+
 
     }
 }
