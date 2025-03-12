@@ -6,13 +6,6 @@ on:
     branches:
       - master
   
-  # Run when pull requests are merged to master
-  pull_request:
-    branches:
-      - master
-    types:
-      - closed
-  
   # Manual trigger option
   workflow_dispatch:
   
@@ -25,8 +18,8 @@ on:
 jobs:
   send-email:
     runs-on: ubuntu-latest
-    # Only run this job when on master branch or when triggered by workflow_run or workflow_dispatch
-    if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch'
+    # Only run this job when on master branch or when triggered manually
+    if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -55,8 +48,8 @@ jobs:
       - name: Send email with report
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: ${{ secrets.MAIL_SERVER }}
-          server_port: ${{ secrets.MAIL_PORT }}
+          server_address: smtp.gmail.com  # Specify your SMTP server directly
+          server_port: 587  # Standard TLS port
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: Test Automation Report - Master Branch - ${{ github.repository }}
@@ -69,7 +62,12 @@ jobs:
             
             Regards,
             Test Automation Framework
+          html_body: |
+            <h2>Test Automation Report</h2>
+            <p>Please find attached the Extent Report from the latest test execution on the master branch.</p>
+            <p>This report was generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}</p>
+            <p>Regards,<br>Test Automation Framework</p>
           to: rankith341@gmail.com
           from: Test Automation <${{ secrets.MAIL_USERNAME }}>
           attachments: ${{ env.REPORT_PATH }},${{ env.SCREENSHOTS_DIR }}/**/*.png
-          content_type: text/html
+          secure: true
