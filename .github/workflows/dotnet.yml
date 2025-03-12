@@ -49,7 +49,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           from: "Anki <rankith341@gmail.com>"
-          to: "ankiamin77@gmail.com"
+          to: "sanathk794@gmail.com"
           subject: "Extent Report - Test Results"
           body: "Attached is the latest test execution report."
           attachments: ${{ env.REPORT_PATH }}
