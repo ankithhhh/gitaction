@@ -35,4 +35,21 @@ jobs:
         id: find-report
         run: |
           REPORT_PATH=$(find . -name "ExtentReport.html" | head -n 1)
-          echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_E
+          if [[ -z "$REPORT_PATH" ]]; then
+            echo "Report file not found!" >&2
+            exit 1
+          fi
+          echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
+
+      - name: Send Email with Report
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          from: "Your Name <your-email@gmail.com>"
+          to: "recipient@example.com"
+          subject: "Extent Report - Test Results"
+          body: "Attached is the latest test execution report."
+          attachments: ${{ env.REPORT_PATH }}
