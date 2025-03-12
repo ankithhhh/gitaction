@@ -61,35 +61,25 @@ namespace RashmiProject.Utilities
         {
             string stepText = _scenarioContext.StepContext.StepInfo.Text;
             string screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
-
+        
             if (_scenarioContext.TestError == null)
             {
-                // ✅ Attach Screenshot Inline for Passed Steps
-                if (screenshotPath != null)
-                {
-                    _scenario.Log(Status.Pass, stepText); //"MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build()");
-                }
-                else
-                {
-                    _scenario.Log(Status.Pass, stepText);
-                }
+                _scenario.Log(Status.Pass, stepText);
             }
             else
             {
-                // ✅ Attach Screenshot Inline for Failed Steps
+                _scenario.Log(Status.Fail, stepText);
+                _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
+        
+                // ✅ Attach Screenshot *Below* the Failed Test Case
                 if (screenshotPath != null)
                 {
-                    _scenario.Log(Status.Fail, stepText, MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                    _scenario.Fail("Screenshot of the failed step:", 
+                        MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
                 }
-                else
-                {
-                    _scenario.Log(Status.Fail, stepText);
-                }
-
-                // ✅ Log the actual error message
-                _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
             }
         }
+
 
 
         [AfterScenario]
