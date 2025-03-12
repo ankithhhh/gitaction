@@ -1,19 +1,19 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
-using WebDriverManager;
 
 namespace RashmiProject.Utilities
 {
     [Binding]
     public class Hooks
     {
-        public  static IWebDriver driver;
+        public static IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
         private static ExtentReports _extent;
         private static ExtentTest _feature;
@@ -39,7 +39,7 @@ namespace RashmiProject.Utilities
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
-            _feature = _extent.CreateTest(featureContext.FeatureInfo.Title);
+            _feature = _extent.CreateTest($"Feature: {featureContext.FeatureInfo.Title}");
         }
 
         [BeforeScenario]
@@ -52,16 +52,16 @@ namespace RashmiProject.Utilities
                 driver = new ChromeDriver();
             }
 
-            // ✅ Store WebDriver in ScenarioContext
             _scenarioContext["WebDriver"] = driver;
-            _scenario = _feature.CreateNode(_scenarioContext.ScenarioInfo.Title);
+            _scenario = _feature.CreateNode($"Scenario: {_scenarioContext.ScenarioInfo.Title}");
         }
+
         [AfterStep]
         public void InsertReportingSteps()
         {
             string stepText = _scenarioContext.StepContext.StepInfo.Text;
             string screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
-        
+
             if (_scenarioContext.TestError == null)
             {
                 _scenario.Log(Status.Pass, stepText);
@@ -70,7 +70,7 @@ namespace RashmiProject.Utilities
             {
                 _scenario.Log(Status.Fail, stepText);
                 _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
-        
+
                 // ✅ Attach Screenshot *Below* the Failed Test Case
                 if (screenshotPath != null)
                 {
@@ -79,8 +79,6 @@ namespace RashmiProject.Utilities
                 }
             }
         }
-
-
 
         [AfterScenario]
         public void TearDown()
@@ -98,38 +96,31 @@ namespace RashmiProject.Utilities
             _extent.Flush();
         }
 
-        // ✅ FIX: Use Step Name Instead of Timestamp for Overwriting
+        // ✅ FIX: Save Screenshots Inside "Reports/Screenshots" for Organization
         private string CaptureScreenshot(string scenarioName, string stepName)
         {
             try
             {
-                if (driver == null)
-                {
-                    TestContext.Progress.WriteLine("WebDriver is null. Cannot capture screenshot.");
-                    return null;
-                }
-
-                if (driver.WindowHandles.Count == 0)
+                if (driver == null || driver.WindowHandles.Count == 0)
                 {
                     TestContext.Progress.WriteLine("No active browser window. Skipping screenshot.");
                     return null;
                 }
 
-                // ✅ Introduce Small Wait Before Capturing Screenshot
-                Thread.Sleep(500);
+                Thread.Sleep(500); // Small delay before capturing
 
                 Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
 
-                // ✅ Ensure Screenshots Folder Exists
-                string screenshotPath = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
-                Directory.CreateDirectory(screenshotPath);
+                // ✅ Ensure Screenshots Folder Exists Inside Reports
+                string screenshotFolder = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "Screenshots");
+                Directory.CreateDirectory(screenshotFolder);
 
                 // ✅ Use Scenario Name + Step Name for Screenshot File Name
                 string sanitizedStepName = string.Join("_", stepName.Split(Path.GetInvalidFileNameChars()));
-                string filePath = Path.Combine(screenshotPath, $"{scenarioName}_{sanitizedStepName}.png");
+                string filePath = Path.Combine(screenshotFolder, $"{scenarioName}_{sanitizedStepName}.png");
 
-                // ✅ Save Screenshot (Overwrites Previous One for Same Step)
-                screenshot.SaveAsFile(filePath);
+                // ✅ Save Screenshot
+                screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
                 TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
 
                 return filePath;
