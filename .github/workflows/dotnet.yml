@@ -48,8 +48,8 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          from: "Your Name <your-email@gmail.com>"
-          to: "recipient@example.com"
+          from: "Anki <rankith341@gmail.com>"
+          to: "ankiamin77@gmail.com"
           subject: "Extent Report - Test Results"
           body: "Attached is the latest test execution report."
           attachments: ${{ env.REPORT_PATH }}
