@@ -106,36 +106,37 @@ namespace RashmiProject.Utilities
         }
 
         private string? CaptureScreenshot(string scenarioName, string stepName)
+{
+    try
+    {
+        if (driver == null || driver.WindowHandles.Count == 0)
         {
-            try
-            {
-                if (driver == null || driver.WindowHandles.Count == 0)
-                {
-                    TestContext.Progress.WriteLine("No active browser window. Skipping screenshot.");
-                    return null;
-                }
-
-                Thread.Sleep(500); 
-
-                Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-
-                string screenshotFolder = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "Screenshots");
-                Directory.CreateDirectory(screenshotFolder);
-
-                string sanitizedStepName = string.Join("_", stepName.Split(Path.GetInvalidFileNameChars()));
-                string filePath = Path.Combine(screenshotFolder, $"{scenarioName}_{sanitizedStepName}.png");
-
-                // ✅ FIX: ScreenshotImageFormat Issue Resolved
-                screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
-                TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
-
-                return filePath;
-            }
-            catch (Exception ex)
-            {
-                TestContext.Progress.WriteLine($"Failed to capture screenshot: {ex.Message}");
-                return null;
-            }
+            TestContext.Progress.WriteLine("No active browser window. Skipping screenshot.");
+            return null;
         }
+
+        Thread.Sleep(500); 
+
+        Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+
+        string screenshotFolder = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "Screenshots");
+        Directory.CreateDirectory(screenshotFolder);
+
+        string sanitizedStepName = string.Join("_", stepName.Split(Path.GetInvalidFileNameChars()));
+        string filePath = Path.Combine(screenshotFolder, $"{scenarioName}_{sanitizedStepName}.png");
+
+        // ✅ FIX: Fully Qualify ScreenshotImageFormat to Avoid "Not Found" Error
+        screenshot.SaveAsFile(filePath, OpenQA.Selenium.ScreenshotImageFormat.Png);
+        TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
+
+        return filePath;
+    }
+    catch (Exception ex)
+    {
+        TestContext.Progress.WriteLine($"Failed to capture screenshot: {ex.Message}");
+        return null;
+    }
+}
+
     }
 }
