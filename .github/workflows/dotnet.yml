@@ -45,7 +45,13 @@ jobs:
         run: |
           echo "Report path: ${{ env.REPORT_PATH }}"
           ls -R ./RashmiProject/bin/Debug/net6.0/Reports
-
+          
+      - name: Debug Email Settings
+        run: |
+          echo "Sending from: ${{ secrets.EMAIL_USERNAME }}"
+          echo "Sending to: sanathk794@gmail.com"
+          echo "Attachment exists: $(test -f ${{ env.REPORT_PATH }} && echo 'Yes' || echo 'No')"
+          
       - name: Send Email with Report
         uses: dawidd6/action-send-mail@v3
         with:
@@ -58,3 +64,4 @@ jobs:
           subject: "Extent Report - Test Results"
           body: "Attached is the latest test execution report."
           attachments: ${{ env.REPORT_PATH }}
+          debug: true
