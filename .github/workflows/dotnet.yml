@@ -1,35 +1,29 @@
 name: Send Extent Report Email
 
 on:
-  # Run when code is pushed to master branch
   push:
     branches:
       - master
-  
-  # Manual trigger option
   workflow_dispatch:
-  
-  # Auto-trigger after tests complete
   workflow_run:
-    workflows: ["Run Automation Tests"]  # Replace with your actual test workflow name
+    workflows: ["Run Automation Tests"]
     types:
       - completed
 
 jobs:
   send-email:
     runs-on: ubuntu-latest
-    # Only run this job when on master branch or when triggered manually
     if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: master  # Explicitly checkout master branch
+          ref: master
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '6.0.x'  # Adjust to match your project's .NET version
+          dotnet-version: '6.0.x'
 
       - name: Restore dependencies
         run: dotnet restore
@@ -41,33 +35,4 @@ jobs:
         id: find-report
         run: |
           REPORT_PATH=$(find . -name "ExtentReport.html" | head -n 1)
-          echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
-          SCREENSHOTS_DIR=$(find . -name "Screenshots" -type d | head -n 1)
-          echo "SCREENSHOTS_DIR=$SCREENSHOTS_DIR" >> $GITHUB_ENV
-
-      - name: Send email with report
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com  # Specify your SMTP server directly
-          server_port: 587  # Standard TLS port
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Test Automation Report - Master Branch - ${{ github.repository }}
-          body: |
-            Hi,
-            
-            Please find attached the Extent Report from the latest test execution on the master branch.
-            
-            This report was generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            
-            Regards,
-            Test Automation Framework
-          html_body: |
-            <h2>Test Automation Report</h2>
-            <p>Please find attached the Extent Report from the latest test execution on the master branch.</p>
-            <p>This report was generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}</p>
-            <p>Regards,<br>Test Automation Framework</p>
-          to: rankith341@gmail.com
-          from: Test Automation <${{ secrets.MAIL_USERNAME }}>
-          attachments: ${{ env.REPORT_PATH }},${{ env.SCREENSHOTS_DIR }}/**/*.png
-          secure: true
+          echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_E
