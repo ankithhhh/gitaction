@@ -41,6 +41,11 @@ jobs:
           fi
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
 
+      - name: Debug Report Path
+        run: |
+          echo "Report path: ${{ env.REPORT_PATH }}"
+          ls -R ./RashmiProject/bin/Debug/net6.0/Reports
+
       - name: Send Email with Report
         uses: dawidd6/action-send-mail@v3
         with:
@@ -48,7 +53,7 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          from: "Anki <rankith341@gmail.com>"
+          from: "Anki <${{ secrets.EMAIL_USERNAME }}>"
           to: "sanathk794@gmail.com"
           subject: "Extent Report - Test Results"
           body: "Attached is the latest test execution report."
