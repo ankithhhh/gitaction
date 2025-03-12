@@ -13,12 +13,12 @@ namespace RashmiProject.Utilities
     [Binding]
     public class Hooks
     {
-        public static IWebDriver? driver;  // ✅ Nullable Fix
+        public static IWebDriver? driver;  
         private readonly ScenarioContext _scenarioContext;
-        private static ExtentReports? _extent;  // ✅ Nullable Fix
-        private static ExtentTest? _feature;  // ✅ Nullable Fix
-        private ExtentTest? _scenario;  // ✅ Nullable Fix
-        private static ExtentSparkReporter? _sparkReporter;  // ✅ Nullable Fix
+        private static ExtentReports? _extent;  
+        private static ExtentTest? _feature;  
+        private ExtentTest? _scenario;  
+        private static ExtentSparkReporter? _sparkReporter;  
 
         public Hooks(ScenarioContext scenarioContext)
         {
@@ -30,7 +30,6 @@ namespace RashmiProject.Utilities
         {
             string reportPath = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "ExtentReport.html");
 
-            // ✅ Null Check Before Creating Directory
             string? directoryPath = Path.GetDirectoryName(reportPath);
             if (!string.IsNullOrEmpty(directoryPath))
             {
@@ -71,7 +70,7 @@ namespace RashmiProject.Utilities
         [AfterStep]
         public void InsertReportingSteps()
         {
-            if (_scenario == null) return;  // ✅ Avoid Null Reference
+            if (_scenario == null) return;  
 
             string stepText = _scenarioContext.StepContext.StepInfo.Text;
             string? screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
@@ -106,7 +105,6 @@ namespace RashmiProject.Utilities
             _extent?.Flush();
         }
 
-        // ✅ FIX: ScreenshotImageFormat Error & Nullable Fix
         private string? CaptureScreenshot(string scenarioName, string stepName)
         {
             try
@@ -117,7 +115,7 @@ namespace RashmiProject.Utilities
                     return null;
                 }
 
-                Thread.Sleep(500); // Small delay before capturing
+                Thread.Sleep(500); 
 
                 Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
 
@@ -127,8 +125,8 @@ namespace RashmiProject.Utilities
                 string sanitizedStepName = string.Join("_", stepName.Split(Path.GetInvalidFileNameChars()));
                 string filePath = Path.Combine(screenshotFolder, $"{scenarioName}_{sanitizedStepName}.png");
 
-                // ✅ Fix: Use Proper ScreenshotImageFormat
-                screenshot.SaveAsFile(filePath, OpenQA.Selenium.ScreenshotImageFormat.Png);
+                // ✅ FIX: ScreenshotImageFormat Issue Resolved
+                screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
                 TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
 
                 return filePath;
