@@ -74,4 +74,3 @@ jobs:
           subject: "Extent Report - Test Results"
           body: "Attached is the latest test execution report."
           attachments: ${{ env.REPORT_PATH }}
-          debug: true
