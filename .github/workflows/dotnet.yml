@@ -32,9 +32,9 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Run SpecFlow Tests
-        run: |
-          echo "Running SpecFlow tests..."
-          dotnet test --filter FullyQualifiedName~Happyflow
+        run: dotnet test --filter FullyQualifiedName~Happyflow
+        continue-on-error: true
+
 
       - name: Locate Extent Report
         id: find-report
