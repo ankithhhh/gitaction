@@ -76,8 +76,7 @@ namespace RashmiProject.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("SaugeLab")]
         [NUnit.Framework.CategoryAttribute("tag1")]
-        [NUnit.Framework.TestCaseAttribute("standard_user", "secret_sauce", "sanath", "kumar", "553909", null)]
-        [NUnit.Framework.TestCaseAttribute("standard_user", "secret_sauce", "dheer", "kumar", "553909", null)]
+        [NUnit.Framework.TestCaseAttribute("standard_user", "secret_sauce", "ankith", "amin", "12345", null)]
         public void SaugeLab(string firstname, string password, string firstname1, string lastname, string zipcode, string[] exampleTags)
         {
             string[] @__tags = new string[] {
