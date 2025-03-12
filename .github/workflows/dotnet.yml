@@ -59,7 +59,7 @@ jobs:
           server_port: 587
           username: "rankith341@gmail.com"
           password: "zaug maxp dtzk loyc"
-          from: "Anki rankith341@gmail.com"
+          from: "Anki <rankith341@gmail.com>"
 
           # username: ${{ secrets.EMAIL_USERNAME }}
           # password: ${{ secrets.EMAIL_PASSWORD }}
