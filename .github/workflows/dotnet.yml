@@ -1,5 +1,4 @@
 name: Run Automation Tests & Send Report
-
 on:
   push:
     branches:
@@ -9,7 +8,6 @@ on:
     workflows: ["Run Automation Tests"]
     types:
       - completed
-
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -31,38 +29,35 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore
 
+      - name: Delete Old Extent Report (if exists)
+        run: |
+          find . -name "ExtentReport.html" -exec rm {} \; || true
+
       - name: Run SpecFlow Tests
         run: dotnet test --filter FullyQualifiedName~Happyflow
         continue-on-error: true
 
-
-      - name: Locate Extent Report
+      - name: Locate Latest Extent Report
         id: find-report
         run: |
-          REPORT_PATH=$(find . -name "ExtentReport.html" | head -n 1)
+          sleep 10  # Allow time for report generation
+          REPORT_PATH=$(find . -name "ExtentReport.html" | sort -r | head -n 1)
           if [[ -z "$REPORT_PATH" ]]; then
             echo "Report file not found!" >&2
             exit 1
           fi
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
 
-      - name: Verify Report File
+      - name: Verify Updated Report
         run: |
           if [ -f "${{ env.REPORT_PATH }}" ]; then
-            echo "Report exists at: ${{ env.REPORT_PATH }}"
+            echo "Updated report exists at: ${{ env.REPORT_PATH }}"
           else
-            echo "Report file NOT found!"
+            echo "Updated report file NOT found!"
             exit 1
           fi
 
-      - name: Debug Email Sending
-        run: |
-          echo "Sending email from: ${{ secrets.EMAIL_USERNAME }}"
-          echo "Sending to: sanathk794@gmail.com"
-          echo "Report attachment: ${{ env.REPORT_PATH }}"
-          ls -lh ${{ env.REPORT_PATH }} || echo "Attachment missing!"
-
-      - name: Send Email with Report
+      - name: Send Email with Latest Report
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -71,6 +66,6 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           from: "Anki <${{ secrets.EMAIL_USERNAME }}>"
           to: "havankotian6188@gmail.com"
-          subject: "Extent Report - Test Results"
+          subject: "Latest Extent Report - Test Results"
           body: "Attached is the latest test execution report."
           attachments: ${{ env.REPORT_PATH }}
