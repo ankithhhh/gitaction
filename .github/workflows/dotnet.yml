@@ -1,8 +1,23 @@
 name: Send Extent Report Email
 
 on:
-  workflow_dispatch:  # Manual trigger option
-  workflow_run:       # Auto-trigger after tests complete
+  # Run when code is pushed to master branch
+  push:
+    branches:
+      - master
+  
+  # Run when pull requests are merged to master
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+  
+  # Manual trigger option
+  workflow_dispatch:
+  
+  # Auto-trigger after tests complete
+  workflow_run:
     workflows: ["Run Automation Tests"]  # Replace with your actual test workflow name
     types:
       - completed
@@ -10,9 +25,13 @@ on:
 jobs:
   send-email:
     runs-on: ubuntu-latest
+    # Only run this job when on master branch or when triggered by workflow_run or workflow_dispatch
+    if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          ref: master  # Explicitly checkout master branch
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -40,11 +59,11 @@ jobs:
           server_port: ${{ secrets.MAIL_PORT }}
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Test Automation Report - ${{ github.repository }}
+          subject: Test Automation Report - Master Branch - ${{ github.repository }}
           body: |
             Hi,
             
-            Please find attached the Extent Report from the latest test execution.
+            Please find attached the Extent Report from the latest test execution on the master branch.
             
             This report was generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
             
