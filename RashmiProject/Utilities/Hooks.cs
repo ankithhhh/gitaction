@@ -13,12 +13,12 @@ namespace RashmiProject.Utilities
     [Binding]
     public class Hooks
     {
-        public static IWebDriver driver;
+        public static IWebDriver? driver;  // ✅ Nullable Fix
         private readonly ScenarioContext _scenarioContext;
-        private static ExtentReports _extent;
-        private static ExtentTest _feature;
-        private ExtentTest _scenario;
-        private static ExtentSparkReporter _sparkReporter;
+        private static ExtentReports? _extent;  // ✅ Nullable Fix
+        private static ExtentTest? _feature;  // ✅ Nullable Fix
+        private ExtentTest? _scenario;  // ✅ Nullable Fix
+        private static ExtentSparkReporter? _sparkReporter;  // ✅ Nullable Fix
 
         public Hooks(ScenarioContext scenarioContext)
         {
@@ -29,7 +29,13 @@ namespace RashmiProject.Utilities
         public static void BeforeTestRun()
         {
             string reportPath = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "ExtentReport.html");
-            Directory.CreateDirectory(Path.GetDirectoryName(reportPath));
+
+            // ✅ Null Check Before Creating Directory
+            string? directoryPath = Path.GetDirectoryName(reportPath);
+            if (!string.IsNullOrEmpty(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
 
             _sparkReporter = new ExtentSparkReporter(reportPath);
             _extent = new ExtentReports();
@@ -39,7 +45,10 @@ namespace RashmiProject.Utilities
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
-            _feature = _extent.CreateTest($"Feature: {featureContext.FeatureInfo.Title}");
+            if (_extent != null)
+            {
+                _feature = _extent.CreateTest($"Feature: {featureContext.FeatureInfo.Title}");
+            }
         }
 
         [BeforeScenario]
@@ -53,14 +62,19 @@ namespace RashmiProject.Utilities
             }
 
             _scenarioContext["WebDriver"] = driver;
-            _scenario = _feature.CreateNode($"Scenario: {_scenarioContext.ScenarioInfo.Title}");
+            if (_feature != null)
+            {
+                _scenario = _feature.CreateNode($"Scenario: {_scenarioContext.ScenarioInfo.Title}");
+            }
         }
 
         [AfterStep]
         public void InsertReportingSteps()
         {
+            if (_scenario == null) return;  // ✅ Avoid Null Reference
+
             string stepText = _scenarioContext.StepContext.StepInfo.Text;
-            string screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
+            string? screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
 
             if (_scenarioContext.TestError == null)
             {
@@ -71,7 +85,6 @@ namespace RashmiProject.Utilities
                 _scenario.Log(Status.Fail, stepText);
                 _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
 
-                // ✅ Attach Screenshot *Below* the Failed Test Case
                 if (screenshotPath != null)
                 {
                     _scenario.Fail("Screenshot of the failed step:", 
@@ -83,21 +96,18 @@ namespace RashmiProject.Utilities
         [AfterScenario]
         public void TearDown()
         {
-            if (driver != null)
-            {
-                driver.Quit();
-                driver = null;
-            }
+            driver?.Quit();
+            driver = null;
         }
 
         [AfterTestRun]
         public static void AfterTestRun()
         {
-            _extent.Flush();
+            _extent?.Flush();
         }
 
-        // ✅ FIX: Save Screenshots Inside "Reports/Screenshots" for Organization
-        private string CaptureScreenshot(string scenarioName, string stepName)
+        // ✅ FIX: ScreenshotImageFormat Error & Nullable Fix
+        private string? CaptureScreenshot(string scenarioName, string stepName)
         {
             try
             {
@@ -111,16 +121,14 @@ namespace RashmiProject.Utilities
 
                 Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
 
-                // ✅ Ensure Screenshots Folder Exists Inside Reports
                 string screenshotFolder = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "Screenshots");
                 Directory.CreateDirectory(screenshotFolder);
 
-                // ✅ Use Scenario Name + Step Name for Screenshot File Name
                 string sanitizedStepName = string.Join("_", stepName.Split(Path.GetInvalidFileNameChars()));
                 string filePath = Path.Combine(screenshotFolder, $"{scenarioName}_{sanitizedStepName}.png");
 
-                // ✅ Save Screenshot
-                screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
+                // ✅ Fix: Use Proper ScreenshotImageFormat
+                screenshot.SaveAsFile(filePath, OpenQA.Selenium.ScreenshotImageFormat.Png);
                 TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
 
                 return filePath;
