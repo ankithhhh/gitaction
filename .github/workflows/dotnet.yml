@@ -1,0 +1,56 @@
+name: Send Extent Report Email
+
+on:
+  workflow_dispatch:  # Manual trigger option
+  workflow_run:       # Auto-trigger after tests complete
+    workflows: ["Run Automation Tests"]  # Replace with your actual test workflow name
+    types:
+      - completed
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'  # Adjust to match your project's .NET version
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --no-restore
+
+      - name: Locate Extent Report
+        id: find-report
+        run: |
+          REPORT_PATH=$(find . -name "ExtentReport.html" | head -n 1)
+          echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
+          SCREENSHOTS_DIR=$(find . -name "Screenshots" -type d | head -n 1)
+          echo "SCREENSHOTS_DIR=$SCREENSHOTS_DIR" >> $GITHUB_ENV
+
+      - name: Send email with report
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.MAIL_SERVER }}
+          server_port: ${{ secrets.MAIL_PORT }}
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Test Automation Report - ${{ github.repository }}
+          body: |
+            Hi,
+            
+            Please find attached the Extent Report from the latest test execution.
+            
+            This report was generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            
+            Regards,
+            Test Automation Framework
+          to: rankith341@gmail.com
+          from: Test Automation <${{ secrets.MAIL_USERNAME }}>
+          attachments: ${{ env.REPORT_PATH }},${{ env.SCREENSHOTS_DIR }}/**/*.png
+          content_type: text/html
