@@ -274,7 +274,6 @@ namespace RashmiProject.Utilities
         private ExtentTest _scenario;
         private static ExtentSparkReporter _sparkReporter;
         private static string reportPath;
-        private static string screenshotsDir;
 
         public Hooks(ScenarioContext scenarioContext)
         {
@@ -286,12 +285,10 @@ namespace RashmiProject.Utilities
         {
             try
             {
-                string baseDir = @"C:\Users\anami\Downloads\RashmiProject (3) 1\RashmiProject\RashmiProject\bin\Debug\net6.0\Reports";
+                string baseDir = Path.Combine(Directory.GetCurrentDirectory(), "Reports");
                 reportPath = Path.Combine(baseDir, "ExtentReport.html");
-                screenshotsDir = Path.Combine(baseDir, "Screenshots");
 
                 Directory.CreateDirectory(baseDir);
-                Directory.CreateDirectory(screenshotsDir);
 
                 _sparkReporter = new ExtentSparkReporter(reportPath);
                 _sparkReporter.Config.DocumentTitle = "Test Execution Report";
@@ -334,15 +331,15 @@ namespace RashmiProject.Utilities
         public void InsertReportingSteps()
         {
             string stepText = _scenarioContext.StepContext.StepInfo.Text;
-            string screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
+            string screenshotBase64 = CaptureScreenshot();
 
             if (_scenarioContext.TestError == null)
             {
-                _scenario.Log(Status.Pass, stepText, MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                _scenario.Log(Status.Pass, stepText, MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshotBase64).Build());
             }
             else
             {
-                _scenario.Log(Status.Fail, stepText, MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+                _scenario.Log(Status.Fail, stepText, MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshotBase64).Build());
                 _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
             }
         }
@@ -395,7 +392,7 @@ namespace RashmiProject.Utilities
             }
         }
 
-        private string CaptureScreenshot(string scenarioName, string stepName)
+        private string CaptureScreenshot()
         {
             try
             {
@@ -403,11 +400,7 @@ namespace RashmiProject.Utilities
                 Thread.Sleep(500);
 
                 Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                string fileName = $"{scenarioName}_{stepName}.png".Replace(" ", "_").Replace(":", "-");
-                string filePath = Path.Combine(screenshotsDir, fileName);
-                screenshot.SaveAsFile(filePath);
-
-                return filePath;
+                return screenshot.AsBase64EncodedString;
             }
             catch (Exception)
             {
