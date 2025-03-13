@@ -25,10 +25,10 @@ jobs:
     - name: Build project
       run: dotnet build --no-restore
 
-    - name: Run tests with SpecFlow
+    - name: Run Happyflow tests with SpecFlow
       run: |
         mkdir -p TestResults/ExtentReports TestResults/Screenshots
-        dotnet test RashmiProject.sln --logger "trx;LogFileName=TestResults/test_results.trx"
+        dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --logger "trx;LogFileName=TestResults/test_results.trx"
 
     - name: Check for Extent Report
       id: check_report
@@ -52,7 +52,7 @@ jobs:
         body: |
           Hello Ankith,
 
-          One or more tests have failed. Please find the attached Extent Report and screenshots.
+          One or more tests have failed in the Happyflow scenario. Please find the attached Extent Report and screenshots.
 
           Regards,
           GitHub Actions
