@@ -1,75 +1,71 @@
-name: .NET Automation Tests
+name: .NET Test Automation CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build project
-      run: dotnet build --no-restore
+      - name: Build project
+        run: dotnet build --no-restore
 
-    - name: Run Happyflow tests with SpecFlow
-      run: |
-        mkdir -p TestResults/ExtentReports TestResults/Screenshots
-        dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --logger "trx;LogFileName=TestResults/test_results.trx"
+      - name: Give execute permissions to Selenium Manager
+        run: chmod +x RashmiProject/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
 
-    - name: Debug - List Report and Screenshot Files
-      run: |
-        echo "Checking Extent Reports Directory:"
-        ls -la TestResults/ExtentReports || echo "ExtentReports directory not found"
-        echo "Checking Screenshots Directory:"
-        ls -la TestResults/Screenshots || echo "Screenshots directory not found"
+      - name: Run tests with SpecFlow filter
+        run: |
+          dotnet test RashmiProject.sln \
+            --filter "FullyQualifiedName~Features.Happyflow" \
+            --no-build --verbosity normal
 
-    - name: Check for Extent Report
-      id: check_report
-      run: |
-        REPORT_FILE=$(find TestResults/ExtentReports -name "ExtentReport.html" | head -n 1)
-        if [ -f "$REPORT_FILE" ]; then
-          echo "REPORT_FOUND=true" >> $GITHUB_ENV
-          echo "Report file found: $REPORT_FILE"
-        else
-          echo "REPORT_FOUND=false" >> $GITHUB_ENV
-          echo "Report file not found."
-        fi
+      - name: List Files in TestResults/Screenshots
+        run: ls -la "${GITHUB_WORKSPACE}/TestResults/Screenshots"
 
-    - name: Debug - Email Sending Step
-      run: echo "Attempting to send email to ankiamin77@gmail.com..."
+      - name: List Files in TestResults/ExtentReports
+        run: ls -la "${GITHUB_WORKSPACE}/TestResults/ExtentReports"
 
-    - name: Send email if test fails
-      if: failure() && env.REPORT_FOUND == 'true'
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 587
-        username: ${{ secrets.GMAIL_USERNAME }}
-        password: ${{ secrets.GMAIL_PASSWORD }}
-        subject: "Test Failed - Screenshot and Extent Report Attached"
-        body: |
-          Hello Ankith,
+      - name: Wait for Extent Report File
+        run: |
+          report_file="${GITHUB_WORKSPACE}/TestResults/ExtentReports/extent_report_$(date +'%Y-%m-%d_%H-%M-%S').html"
+          if [ -f "$report_file" ]; then
+            echo "Extent report file exists: $report_file"
+          else
+            echo "Extent report file not found."
+            exit 1
+          fi
 
-          One or more tests have failed in the Happyflow scenario. Please find the attached Extent Report and screenshots.
-
-          Regards,
-          GitHub Actions
-        to: "ankiamin77@gmail.com"
-        from: ${{ secrets.GMAIL_USERNAME }}
-        attachments: |
-          TestResults/Screenshots/*
-          TestResults/ExtentReports/*
+      - name: Send email notification on failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.GMAIL_USERNAME }}
+          password: ${{ secrets.GMAIL_PASSWORD }}
+          subject: "Test Failed - Screenshot and Extent Report Attached"
+          body: |
+            Hello Developer,
+            One or more tests have failed. Please find the screenshot and extent report attached for your reference.
+            Regards,
+            GitHub Actions
+          to: ankiamin77@gmail.com
+          from: ${{ secrets.GMAIL_USERNAME }}
+          attachments: |
+            ${{ github.workspace }}/TestResults/Screenshots/*
+            ${{ github.workspace }}/TestResults/ExtentReports/*
