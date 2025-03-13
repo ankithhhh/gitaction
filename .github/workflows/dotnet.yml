@@ -1,10 +1,12 @@
-name: Run HappyFlow Tests and Send Report
+name: Run Happy Flow and Send Email
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
   test:
@@ -12,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
@@ -25,53 +27,18 @@ jobs:
     - name: Build Project
       run: dotnet build --no-restore
 
-    - name: Give Execute Permissions to Selenium Manager
-      run: chmod +x /home/runner/work/gitnew/gitnew/RashmiProject/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
-
-    - name: Run HappyFlow Tests
+    - name: Run Happy Flow Tests
       run: |
         dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --no-build --verbosity normal
 
-    - name: Debug: List Report and Screenshot Files
-      run: |
-        echo "Listing TestResults folder..."
-        ls -R "${GITHUB_WORKSPACE}/TestResults"
-
-    - name: Check if Extent Report Exists
-      run: |
-        REPORT_FILE="TestResults/ExtentReports/extent_report.html"
-        if [ -f "$REPORT_FILE" ]; then
-          echo "Extent Report found at $REPORT_FILE ✅"
-        else
-          echo "❌ Extent Report not found!"
-          exit 1
-        fi
-
-    - name: Fix File Permissions
-      run: chmod -R 777 TestResults
-
-    - name: Upload Extent Report
-      uses: actions/upload-artifact@v4
-      with:
-        name: ExtentReport
-        path: TestResults/ExtentReports/extent_report.html
-
     - name: Send Email Notification
-      if: always()  # Send email whether tests pass or fail
       uses: dawidd6/action-send-mail@v3
       with:
         server_address: smtp.gmail.com
         server_port: 587
         username: ${{ secrets.GMAIL_USERNAME }}
         password: ${{ secrets.GMAIL_PASSWORD }}
-        subject: "Test Execution Report - HappyFlow"
-        body: |
-          Hello Developer,
-          The HappyFlow test execution has completed.
-          Please find the Extent Report attached.
-          Regards,
-          GitHub Actions
-        to: ankiamin77@gmail.com
+        subject: "GitHub Actions Notification"
+        body: "Hi"
+        to: "ankiamin77@gmail.com"
         from: ${{ secrets.GMAIL_USERNAME }}
-        attachments: |
-          ${{ github.workspace }}/TestResults/ExtentReports/extent_report.html
