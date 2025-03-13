@@ -30,15 +30,27 @@ jobs:
         mkdir -p TestResults/ExtentReports TestResults/Screenshots
         dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --logger "trx;LogFileName=TestResults/test_results.trx"
 
+    - name: Debug - List Report and Screenshot Files
+      run: |
+        echo "Checking Extent Reports Directory:"
+        ls -la TestResults/ExtentReports || echo "ExtentReports directory not found"
+        echo "Checking Screenshots Directory:"
+        ls -la TestResults/Screenshots || echo "Screenshots directory not found"
+
     - name: Check for Extent Report
       id: check_report
       run: |
         REPORT_FILE=$(find TestResults/ExtentReports -name "ExtentReport.html" | head -n 1)
         if [ -f "$REPORT_FILE" ]; then
           echo "REPORT_FOUND=true" >> $GITHUB_ENV
+          echo "Report file found: $REPORT_FILE"
         else
           echo "REPORT_FOUND=false" >> $GITHUB_ENV
+          echo "Report file not found."
         fi
+
+    - name: Debug - Email Sending Step
+      run: echo "Attempting to send email to ankiamin77@gmail.com..."
 
     - name: Send email if test fails
       if: failure() && env.REPORT_FOUND == 'true'
