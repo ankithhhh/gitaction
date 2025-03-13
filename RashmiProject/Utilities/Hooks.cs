@@ -86,42 +86,63 @@ namespace RashmiProject.Utilities
         }
 
         [AfterStep]
-        public void InsertReportingSteps()
+public void InsertReportingSteps()
+{
+    try
+    {
+        if (_scenario == null)
         {
-            string stepText = _scenarioContext.StepContext.StepInfo.Text;
-            string screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
+            TestContext.Progress.WriteLine("Scenario is null. Skipping step logging.");
+            return;
+        }
 
-            if (_scenarioContext.TestError == null)
-            {
-                // Log Passed Step
-                _scenario.Log(Status.Pass, stepText);
-            }
-            else
-            {
-                // Log Failed Step with Screenshot
-                if (screenshotPath != null)
-                {
-                    _scenario.Log(Status.Fail, stepText, 
-                        MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-                }
-                else
-                {
-                    _scenario.Log(Status.Fail, stepText);
-                }
+        string stepText = _scenarioContext.StepContext.StepInfo.Text;
+        string screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
 
-                _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
+        if (_scenarioContext.TestError == null)
+        {
+            _scenario.Log(Status.Pass, stepText);
+        }
+        else
+        {
+            _scenario.Log(Status.Fail, stepText);
+            _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
+
+            if (!string.IsNullOrEmpty(screenshotPath))
+            {
+                _scenario.Fail("Screenshot of failure:", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
             }
         }
+    }
+    catch (Exception ex)
+    {
+        TestContext.Progress.WriteLine($"Failed to log step: {ex.Message}");
+    }
+}
+
 
         [AfterScenario]
-        public void TearDown()
+public void TearDown()
+{
+    try
+    {
+        if (driver != null)
         {
-            if (driver != null)
-            {
-                driver.Quit();
-                driver = null;
-            }
+            driver.Quit();
+            driver = null;
         }
+
+        if (_extent != null)
+        {
+            _extent.Flush();
+        }
+    }
+    catch (Exception ex)
+    {
+        TestContext.Progress.WriteLine($"Error during teardown: {ex.Message}");
+    }
+}
+
 
         [AfterTestRun]
         public static void AfterTestRun()
@@ -132,30 +153,40 @@ namespace RashmiProject.Utilities
             }
         }
 
+        
         private string CaptureScreenshot(string scenarioName, string stepName)
+{
+    try
+    {
+        if (driver == null || driver.WindowHandles.Count == 0)
         {
-            try
-            {
-                if (driver == null) return null;
-                if (driver.WindowHandles.Count == 0) return null;
-
-                Thread.Sleep(500); // Short delay for stability
-                Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-
-                string screenshotPath = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "Screenshots");
-                Directory.CreateDirectory(screenshotPath);
-
-                string fileName = $"{scenarioName}_{stepName}.png".Replace(" ", "_").Replace(":", "_");
-                string filePath = Path.Combine(screenshotPath, fileName);
-
-                screenshot.SaveAsFile(filePath);
-                return filePath;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            TestContext.Progress.WriteLine("WebDriver is not available. Skipping screenshot.");
+            return null;
         }
+
+        Thread.Sleep(500);
+        Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+
+        string screenshotsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
+        Directory.CreateDirectory(screenshotsFolder);
+
+        string sanitizedStepName = new string(stepName.Where(c => !Path.GetInvalidFileNameChars().Contains(c)).ToArray());
+        string sanitizedScenarioName = new string(scenarioName.Where(c => !Path.GetInvalidFileNameChars().Contains(c)).ToArray());
+
+        string filePath = Path.Combine(screenshotsFolder, $"{sanitizedScenarioName}_{sanitizedStepName}.png");
+        screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
+
+        TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
+
+        return filePath;
+    }
+    catch (Exception ex)
+    {
+        TestContext.Progress.WriteLine($"Error capturing screenshot: {ex.Message}");
+        return null;
+    }
+}
+
     }
 }
 
