@@ -17,47 +17,52 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: master
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-
       - name: Restore dependencies
         run: dotnet restore
-
       - name: Build project
         run: dotnet build --no-restore
-
-      - name: Delete Old Extent Report (if exists)
+      - name: Delete Old Reports (if exist)
         run: |
-          find . -name "ExtentReport.html" -exec rm {} \; || true
-
+          find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" -delete || true
       - name: Run SpecFlow Tests
         run: dotnet test --filter FullyQualifiedName~Happyflow
         continue-on-error: true
-
-      - name: Locate Latest Extent Report
+      - name: Locate Extent Report
         id: find-report
         run: |
           sleep 10  # Allow time for report generation
-          REPORT_PATH=$(find . -name "ExtentReport.html" | sort -r | head -n 1)
+          
+          # Look for the report in the expected location
+          REPORT_PATH=$(find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" | head -n 1)
+          
+          # If not found, look in any bin directory
+          if [[ -z "$REPORT_PATH" ]]; then
+            REPORT_PATH=$(find . -name "ExtentReport.html" | sort -r | head -n 1)
+          fi
+          
           if [[ -z "$REPORT_PATH" ]]; then
             echo "Report file not found!" >&2
+            find . -name "ExtentReport.html"
+            find . -path "*/bin" -type d
             exit 1
           fi
+          
+          echo "Found report at: $REPORT_PATH"
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
-
-      - name: Verify Updated Report
+      - name: Verify Report Exists
         run: |
           if [ -f "${{ env.REPORT_PATH }}" ]; then
-            echo "Updated report exists at: ${{ env.REPORT_PATH }}"
+            echo "Report exists at: ${{ env.REPORT_PATH }}"
+            ls -la "${{ env.REPORT_PATH }}"
           else
-            echo "Updated report file NOT found!"
+            echo "Report file NOT found!"
             exit 1
           fi
-
-      - name: Send Email with Latest Report
+      - name: Send Email with Report
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -66,6 +71,14 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           from: "Anki <${{ secrets.EMAIL_USERNAME }}>"
           to: "havankotian6188@gmail.com"
-          subject: "Latest Extent Report - Test Results"
-          body: "Attached is the latest test execution report."
+          subject: "Automation Test Results Report"
+          body: |
+            Hello,
+            
+            Attached is the latest test execution report generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
+            
+            This report contains the results of the Happyflow test scenarios.
+            
+            Regards,
+            CI/CD Automation
           attachments: ${{ env.REPORT_PATH }}
