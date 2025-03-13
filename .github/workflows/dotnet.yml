@@ -8,6 +8,7 @@ on:
     workflows: ["Run Automation Tests"]
     types:
       - completed
+
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -41,8 +42,8 @@ jobs:
         id: find-report
         run: |
           sleep 10
-          REPORT_PATH=$(find . -path "*/Reports/ExtentReport.html" | head -n 1)
-          SCREENSHOT_PATH=$(find . -path "*/Reports/Screenshots" | head -n 1)
+          REPORT_PATH=$(find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" | head -n 1)
+          SCREENSHOT_PATH=$(find . -path "*/bin/Debug/net6.0/Reports/Screenshots" | head -n 1)
       
           if [[ -z "$REPORT_PATH" ]]; then
             echo "❌ Report file not found!" >&2
@@ -52,18 +53,18 @@ jobs:
           echo "✅ Report located at: $REPORT_PATH"
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
           echo "SCREENSHOT_PATH=$SCREENSHOT_PATH" >> $GITHUB_ENV
+
       - name: Debug Report Path
         run: |
           echo "📌 Report Path: ${{ env.REPORT_PATH }}"
           ls -l ${{ env.REPORT_PATH }}
 
-
       - name: Verify Report Exists
         run: |
           if [ -f "${{ env.REPORT_PATH }}" ]; then
-            echo "Report exists at: ${{ env.REPORT_PATH }}"
+            echo "✅ Report exists at: ${{ env.REPORT_PATH }}"
           else
-            echo "Report file NOT found!"
+            echo "❌ Report file NOT found!"
             exit 1
           fi
 
@@ -87,8 +88,6 @@ jobs:
           attachments: |
             ${{ env.REPORT_PATH }}
             $(find ${{ env.SCREENSHOT_PATH }} -type f | tr '\n' ',')
-
-
 
 
 # name: Run Automation Tests & Send Report
