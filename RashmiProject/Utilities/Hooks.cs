@@ -1,11 +1,10 @@
 using System;
 using System.IO;
-using System.Threading;
+using System.Net.Mail;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
 
 namespace RashmiProject.Utilities
@@ -13,12 +12,12 @@ namespace RashmiProject.Utilities
     [Binding]
     public class Hooks
     {
-        public static IWebDriver? driver { get; private set; } // Made public
+        public static IWebDriver? driver { get; private set; }
         private readonly ScenarioContext _scenarioContext;
-        private static ExtentReports _extent = new ExtentReports();
-        private static ExtentTest _feature = null!;
-        private ExtentTest _scenario = null!;
-        private static ExtentSparkReporter _sparkReporter = null!;
+        private static ExtentReports _extent;
+        private static ExtentTest _feature;
+        private ExtentTest _scenario;
+        private static ExtentSparkReporter _sparkReporter;
         private static string reportPath = "";
         private static string screenshotsDir = "";
 
@@ -30,16 +29,17 @@ namespace RashmiProject.Utilities
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
+            driver = sauceLabs_PageObject.Utils.WebDriverManager.GetDriver();
+            
             string reportsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
             Directory.CreateDirectory(reportsDir);
             reportPath = Path.Combine(reportsDir, "ExtentReport.html");
-
-            Console.WriteLine($"📌 Report will be saved at: {reportPath}");  // Debugging
-
+            
             screenshotsDir = Path.Combine(reportsDir, "Screenshots");
             Directory.CreateDirectory(screenshotsDir);
 
             _sparkReporter = new ExtentSparkReporter(reportPath);
+            _extent = new ExtentReports();
             _extent.AttachReporter(_sparkReporter);
         }
 
@@ -52,11 +52,8 @@ namespace RashmiProject.Utilities
         [BeforeScenario]
         public void Setup()
         {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            _scenarioContext["WebDriver"] = driver;
             _scenario = _feature.CreateNode(_scenarioContext.ScenarioInfo.Title);
+            _scenarioContext["WebDriver"] = driver;
         }
 
         [AfterStep]
@@ -67,7 +64,7 @@ namespace RashmiProject.Utilities
 
             if (_scenarioContext.TestError != null)
             {
-                screenshotBase64 = CaptureScreenshotBase64();
+                screenshotBase64 = CaptureScreenshot();
                 string imgTag = screenshotBase64 != null ? $"<img src='data:image/png;base64,{screenshotBase64}' width='600px' />" : "";
                 _scenario.Log(Status.Fail, stepText + "<br>" + imgTag);
                 _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
@@ -88,33 +85,65 @@ namespace RashmiProject.Utilities
         [AfterTestRun]
         public static void AfterTestRun()
         {
-            Console.WriteLine($"✅ Flushing Extent Report at: {reportPath}");
             _extent.Flush();
+            SendEmailReport();
         }
 
-        private string? CaptureScreenshotBase64()
+        private static void SendEmailReport()
+        {
+            if (File.Exists(reportPath))
+            {
+                try
+                {
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress("your-email@example.com");
+                    mail.To.Add("ankiamin77@gmail.com");
+                    mail.Subject = "Automation Test Results Report";
+                    mail.Body = "Hello,\n\nAttached is the latest test execution report.\n\nRegards,\nCI/CD Automation";
+                    mail.Attachments.Add(new Attachment(reportPath));
+                    
+                    SmtpClient smtp = new SmtpClient("smtp.gmail.com")
+                    {
+                        Port = 587,
+                        Credentials = new System.Net.NetworkCredential("your-email@example.com", "your-password"),
+                        EnableSsl = true
+                    };
+                    
+                    smtp.Send(mail);
+                    TestContext.Progress.WriteLine("✅ Attached Extent Report and sent email.");
+                }
+                catch (Exception ex)
+                {
+                    TestContext.Progress.WriteLine("❌ Failed to send email: " + ex.Message);
+                }
+            }
+            else
+            {
+                TestContext.Progress.WriteLine("❌ Report file not found!");
+            }
+        }
+
+        private string? CaptureScreenshot()
         {
             try
             {
                 if (driver == null || driver.WindowHandles.Count == 0)
                 {
-                    TestContext.Progress.WriteLine("No active browser window. Skipping screenshot.");
                     return null;
                 }
                 
-                Thread.Sleep(500);
                 Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                return screenshot.AsBase64EncodedString;
+                string screenshotPath = Path.Combine(screenshotsDir, $"Screenshot_{Guid.NewGuid()}.png");
+                screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
+                return Convert.ToBase64String(File.ReadAllBytes(screenshotPath));
             }
-            catch (Exception ex)
+            catch
             {
-                TestContext.Progress.WriteLine($"Failed to capture screenshot: {ex.Message}");
                 return null;
             }
         }
     }
 }
-
 
 
 
