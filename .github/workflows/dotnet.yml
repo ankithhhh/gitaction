@@ -3,10 +3,10 @@ name: Run Selenium Tests & Send Extent Report
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
