@@ -90,6 +90,7 @@ jobs:
             $(find ${{ env.SCREENSHOT_PATH }} -type f | tr '\n' ',')
 
 
+
 # name: Run Automation Tests & Send Report
 # on:
 #   push:
