@@ -3,11 +3,11 @@ name: Run Selenium Tests & Send Extent Report
 on:
   push:
     branches:
-      - master  # Runs only when pushing to 'master'
+      - master  # Runs only on 'master' branch
   pull_request:
     branches:
-      - master  # Runs only when a PR is made to 'master'
-  workflow_dispatch:  # Allows manual triggering
+      - master  # Runs on PRs to 'master'
+  workflow_dispatch:  # Allows manual execution
 
 jobs:
   test-and-report:
@@ -20,7 +20,7 @@ jobs:
       - name: Set Up .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0' # Change this based on your project
+          dotnet-version: '7.0'  # Change based on your project
 
       - name: Install ChromeDriver
         uses: browser-actions/setup-chrome@v1
@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4  # Updated to v4
         with:
           name: ExtentReport
-          path: Reports/ExtentReport.html  # Ensure this is the correct path
+          path: Reports/ExtentReport.html  # Ensure the correct path
 
       - name: Send Email with Extent Report
         uses: dawidd6/action-send-mail@v3
@@ -47,10 +47,17 @@ jobs:
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.SMTP_USER }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "Selenium Test Report"
+          subject: "Selenium Test Report - $(date +'%Y-%m-%d')"
           body: "Hello, \n\nPlease find attached the latest Selenium Extent Report.\n\nBest Regards,\nGitHub Actions"
           to: "ankiamin77@gmail.com"
           from: "GitHub Actions"
           attachments: "Reports/ExtentReport.html"
           secure: true
           debug: true
+
+    post:
+      - name: Cleanup Reports & Logs
+        run: |
+          rm -rf Reports/*
+          rm -rf TestResults/*
+        if: always()  # Runs even if the job fails
