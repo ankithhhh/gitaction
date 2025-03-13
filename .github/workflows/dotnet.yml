@@ -42,3 +42,4 @@ jobs:
         body: "Hi"
         to: "ankiamin77@gmail.com"
         from: ${{ secrets.GMAIL_USERNAME }}
+
