@@ -30,14 +30,15 @@ namespace RashmiProject.Utilities
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
-            string reportPath = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "ExtentReport.html");
-
-            string? directoryPath = Path.GetDirectoryName(reportPath);
-            if (!string.IsNullOrEmpty(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
-
+            driver = sauceLabs_PageObject.Utils.WebDriverManager.GetDriver();
+ 
+            string reportsDir = Path.Combine(Directory.GetCurrentDirectory(), "Reports");
+            Directory.CreateDirectory(reportsDir);
+            reportPath = Path.Combine(reportsDir, "ExtentReport.html");
+ 
+            screenshotsDir = Path.Combine(reportsDir, "Screenshots");
+            Directory.CreateDirectory(screenshotsDir);
+ 
             _sparkReporter = new ExtentSparkReporter(reportPath);
             _extent = new ExtentReports();
             _extent.AttachReporter(_sparkReporter);
