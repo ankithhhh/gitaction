@@ -1,52 +1,63 @@
-name: Automation Test - Happy Flow
+name: .NET Automation Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "master" ]
   pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [ "master" ]
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: 🛠 Checkout Repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: 🔧 Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0
 
-      - name: 📦 Restore Dependencies
-        run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore
 
-      - name: 🚀 Build Solution
-        run: dotnet build --configuration Debug
+    - name: Build project
+      run: dotnet build --no-restore
 
-      - name: 🧪 Run Only Happy Flow Tests
-        run: dotnet test --filter FullyQualifiedName~RashmiProject.Features.Happyflow
+    - name: Run tests with SpecFlow
+      run: |
+        mkdir -p TestResults/ExtentReports TestResults/Screenshots
+        dotnet test RashmiProject.sln --logger "trx;LogFileName=TestResults/test_results.trx"
 
-      - name: 📂 Upload Extent Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: ExtentReport
-          path: |
-            RashmiProject/RashmiProject/bin/Debug/net6.0/Reports/ExtentReport.html
+    - name: Check for Extent Report
+      id: check_report
+      run: |
+        REPORT_FILE=$(find TestResults/ExtentReports -name "ExtentReport.html" | head -n 1)
+        if [ -f "$REPORT_FILE" ]; then
+          echo "REPORT_FOUND=true" >> $GITHUB_ENV
+        else
+          echo "REPORT_FOUND=false" >> $GITHUB_ENV
+        fi
 
-      - name: 📧 Send Email with Report
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "🚀 Happy Flow Test Report"
-          body: "Hello,\n\nFind the attached Extent Report for the Happy Flow test execution.\n\nBest Regards,\nAutomation Team"
-          from: "your-email@example.com"
-          to: "ankiamin77@gmail.com"
-          attachments: RashmiProject/RashmiProject/bin/Debug/net6.0/Reports/ExtentReport.html
+    - name: Send email if test fails
+      if: failure() && env.REPORT_FOUND == 'true'
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.GMAIL_USERNAME }}
+        password: ${{ secrets.GMAIL_PASSWORD }}
+        subject: "Test Failed - Screenshot and Extent Report Attached"
+        body: |
+          Hello Ankith,
+
+          One or more tests have failed. Please find the attached Extent Report and screenshots.
+
+          Regards,
+          GitHub Actions
+        to: "ankiamin77@gmail.com"
+        from: ${{ secrets.GMAIL_USERNAME }}
+        attachments: |
+          TestResults/Screenshots/*
+          TestResults/ExtentReports/*
