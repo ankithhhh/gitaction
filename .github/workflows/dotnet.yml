@@ -3,10 +3,10 @@ name: Run Selenium Tests & Send Extent Report
 on:
   push:
     branches:
-      - master
+      - master  # Runs only when pushing to 'master'
   pull_request:
     branches:
-      - master
+      - master  # Runs only when a PR is made to 'master'
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
       - name: Set Up .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0' # Change this to match your project
+          dotnet-version: '7.0' # Change this based on your project
 
       - name: Install ChromeDriver
         uses: browser-actions/setup-chrome@v1
@@ -35,10 +35,10 @@ jobs:
         run: dotnet test --logger trx --results-directory TestResults
 
       - name: Upload Extent Report as an Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Updated to v4
         with:
           name: ExtentReport
-          path: Reports/ExtentReport.html  # Make sure the report is stored in this path
+          path: Reports/ExtentReport.html  # Ensure this is the correct path
 
       - name: Send Email with Extent Report
         uses: dawidd6/action-send-mail@v3
@@ -53,4 +53,4 @@ jobs:
           from: "GitHub Actions"
           attachments: "Reports/ExtentReport.html"
           secure: true
-          debug: true  # Enable debug logs if needed
+          debug: true
