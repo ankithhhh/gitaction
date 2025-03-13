@@ -41,11 +41,22 @@ namespace RashmiProject.Utilities
             _extent.AttachReporter(_sparkReporter);
         }
 
-        [BeforeFeature]
-        public static void BeforeFeature(FeatureContext featureContext)
-        {
-            _feature = _extent.CreateTest(featureContext.FeatureInfo.Title);
-        }
+        [BeforeTestRun]
+public static void BeforeTestRun()
+{
+    string reportsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+    Directory.CreateDirectory(reportsDir);
+    reportPath = Path.Combine(reportsDir, "ExtentReport.html");
+
+    Console.WriteLine($"📌 Report will be saved at: {reportPath}");  // Debugging
+
+    screenshotsDir = Path.Combine(reportsDir, "Screenshots");
+    Directory.CreateDirectory(screenshotsDir);
+
+    _sparkReporter = new ExtentSparkReporter(reportPath);
+    _extent.AttachReporter(_sparkReporter);
+}
+
 
         [BeforeScenario]
         public void Setup()
