@@ -19,6 +19,8 @@ namespace RashmiProject.Utilities
         private static ExtentTest _feature;
         private ExtentTest _scenario;
         private static ExtentSparkReporter _sparkReporter;
+        private static string reportDirectory = Path.Combine(Directory.GetCurrentDirectory(), "TestReports");
+        private static string reportPath = Path.Combine(reportDirectory, "ExtentReport.html");
 
         public Hooks(ScenarioContext scenarioContext)
         {
@@ -26,93 +28,52 @@ namespace RashmiProject.Utilities
         }
 
         [BeforeTestRun]
-public static void BeforeTestRun()
-{
-    try
-    {
-        // Define a fixed path for storing the report
-        string projectRoot = Directory.GetCurrentDirectory();
-        string reportDirectory = Path.Combine(projectRoot, "TestReports");
-        string reportPath = Path.Combine(reportDirectory, "ExtentReport.html");
+        public static void BeforeTestRun()
+        {
+            try
+            {
+                Directory.CreateDirectory(reportDirectory);  // Ensure directory exists
 
-        // Ensure the directory exists
-        Directory.CreateDirectory(reportDirectory);
+                _sparkReporter = new ExtentSparkReporter(reportPath);
+                _sparkReporter.Config.DocumentTitle = "Test Execution Report";
+                _sparkReporter.Config.ReportName = "Automation Test Results";
+                _sparkReporter.Config.Theme = AventStack.ExtentReports.Reporter.Config.Theme.Standard;
 
-        // Initialize Extent Reports
-        _sparkReporter = new ExtentSparkReporter(reportPath);
-        _sparkReporter.Config.DocumentTitle = "Test Execution Report";
-        _sparkReporter.Config.ReportName = "Automation Test Results";
-        _sparkReporter.Config.Theme = AventStack.ExtentReports.Reporter.Config.Theme.Standard;
+                _extent = new ExtentReports();
+                _extent.AttachReporter(_sparkReporter);
+                _extent.AddSystemInfo("Environment", "Testing");
+                _extent.AddSystemInfo("Browser", "Chrome");
+                _extent.AddSystemInfo("OS", Environment.OSVersion.ToString());
 
-        _extent = new ExtentReports();
-        _extent.AttachReporter(_sparkReporter);
-        _extent.AddSystemInfo("Environment", "Testing");
-        _extent.AddSystemInfo("Browser", "Chrome");
-        _extent.AddSystemInfo("OS", Environment.OSVersion.ToString());
-
-        TestContext.Progress.WriteLine($"Report will be generated at: {reportPath}");
-    }
-    catch (Exception ex)
-    {
-        TestContext.Progress.WriteLine($"Failed to initialize extent report: {ex.Message}");
-        TestContext.Progress.WriteLine($"Stack trace: {ex.StackTrace}");
-    }
-}
-
-
+                TestContext.Progress.WriteLine($"Report will be saved at: {reportPath}");
+            }
+            catch (Exception ex)
+            {
+                TestContext.Progress.WriteLine($"Failed to initialize extent report: {ex.Message}");
+            }
+        }
 
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
-            try
+            if (_extent != null)
             {
-                if (_extent != null)
-                {
-                    _feature = _extent.CreateTest(featureContext.FeatureInfo.Title);
-                    TestContext.Progress.WriteLine($"Created feature test: {featureContext.FeatureInfo.Title}");
-                }
-                else
-                {
-                    TestContext.Progress.WriteLine("ExtentReport instance is null. Cannot create feature test.");
-                }
-            }
-            catch (Exception ex)
-            {
-                TestContext.Progress.WriteLine($"Failed to create feature test: {ex.Message}");
+                _feature = _extent.CreateTest(featureContext.FeatureInfo.Title);
+                TestContext.Progress.WriteLine($"Created feature test: {featureContext.FeatureInfo.Title}");
             }
         }
 
         [BeforeScenario]
         public void Setup()
         {
-            try
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            _scenarioContext["WebDriver"] = driver;
+
+            if (_feature != null)
             {
-                TestContext.Progress.WriteLine("Initializing WebDriver...");
-
-                if (driver == null)
-                {
-                    driver = new ChromeDriver();
-                    driver.Manage().Window.Maximize();
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-                }
-
-                // Store WebDriver in ScenarioContext
-                _scenarioContext["WebDriver"] = driver;
-
-                // Create scenario node
-                if (_feature != null)
-                {
-                    _scenario = _feature.CreateNode(_scenarioContext.ScenarioInfo.Title);
-                    TestContext.Progress.WriteLine($"Created scenario node: {_scenarioContext.ScenarioInfo.Title}");
-                }
-                else
-                {
-                    TestContext.Progress.WriteLine("Feature test is null. Cannot create scenario node.");
-                }
-            }
-            catch (Exception ex)
-            {
-                TestContext.Progress.WriteLine($"Failed to setup scenario: {ex.Message}");
+                _scenario = _feature.CreateNode(_scenarioContext.ScenarioInfo.Title);
             }
         }
 
@@ -122,39 +83,16 @@ public static void BeforeTestRun()
             try
             {
                 string stepText = _scenarioContext.StepContext.StepInfo.Text;
-                string screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
-
-                if (_scenario == null)
-                {
-                    TestContext.Progress.WriteLine("Scenario is null. Cannot log step.");
-                    return;
-                }
+                if (_scenario == null) return;
 
                 if (_scenarioContext.TestError == null)
                 {
-                    // For passed steps
-                    if (screenshotPath != null)
-                    {
-                        _scenario.Log(Status.Pass, stepText, MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-                    }
-                    else
-                    {
-                        _scenario.Log(Status.Pass, stepText);
-                    }
+                    _scenario.Log(Status.Pass, stepText);
                 }
                 else
                 {
-                    // For failed steps
-                    if (screenshotPath != null)
-                    {
-                        _scenario.Log(Status.Fail, stepText, MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-                        _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
-                    }
-                    else
-                    {
-                        _scenario.Log(Status.Fail, stepText);
-                        _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
-                    }
+                    _scenario.Log(Status.Fail, stepText);
+                    _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
                 }
             }
             catch (Exception ex)
@@ -166,85 +104,15 @@ public static void BeforeTestRun()
         [AfterScenario]
         public void TearDown()
         {
-            try
-            {
-                if (driver != null)
-                {
-                    driver.Quit();
-                    driver = null;
-                    TestContext.Progress.WriteLine("WebDriver quit successfully.");
-                }
-            }
-            catch (Exception ex)
-            {
-                TestContext.Progress.WriteLine($"Failed to tear down: {ex.Message}");
-            }
+            driver?.Quit();
+            driver = null;
         }
 
-      [AfterTestRun]
-public static void AfterTestRun()
-{
-    try
-    {
-        if (_extent != null)
+        [AfterTestRun]
+        public static void AfterTestRun()
         {
-            _extent.Flush();
-            TestContext.Progress.WriteLine("ExtentReport has been generated successfully.");
-        }
-        else
-        {
-            TestContext.Progress.WriteLine("ExtentReport instance is null. Cannot generate report.");
-        }
-    }
-    catch (Exception ex)
-    {
-        TestContext.Progress.WriteLine($"Failed to generate extent report: {ex.Message}");
-    }
-}
-
-
-        private string CaptureScreenshot(string scenarioName, string stepName)
-        {
-            try
-            {
-                if (driver == null)
-                {
-                    TestContext.Progress.WriteLine("WebDriver is null. Cannot capture screenshot.");
-                    return null;
-                }
-
-                if (driver.WindowHandles.Count == 0)
-                {
-                    TestContext.Progress.WriteLine("No active browser window. Skipping screenshot.");
-                    return null;
-                }
-
-                // Introduce small wait before capturing screenshot
-                Thread.Sleep(500);
-
-                Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-
-                // Ensure Screenshots folder exists
-                string screenshotPath = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
-                Directory.CreateDirectory(screenshotPath);
-
-                // Use Scenario Name + Step Name for Screenshot File Name
-                string sanitizedStepName = string.Join("_", stepName.Split(Path.GetInvalidFileNameChars()));
-                string sanitizedScenarioName = string.Join("_", scenarioName.Split(Path.GetInvalidFileNameChars()));
-                string filePath = Path.Combine(screenshotPath, $"{sanitizedScenarioName}_{sanitizedStepName}.png");
-
-                // Save Screenshot (Overwrites Previous One for Same Step)
-                screenshot.SaveAsFile(filePath);
-                TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
-
-                return filePath;
-            }
-            catch (Exception ex)
-            {
-                TestContext.Progress.WriteLine($"Failed to capture screenshot: {ex.Message}");
-                return null;
-            }
+            _extent?.Flush();
+            TestContext.Progress.WriteLine($"Extent report saved at: {reportPath}");
         }
     }
 }
-
