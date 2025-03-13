@@ -1,4 +1,4 @@
-name: Run .NET Tests & Send Extent Report
+name: Run HappyFlow Tests & Send Report
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-and-report:
+  happyflow-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,29 +26,9 @@ jobs:
       - name: Build Project
         run: dotnet build --no-restore
 
-      - name: Grant Execute Permissions for Selenium Manager
-        run: chmod +x /home/runner/work/gitnew/gitnew/RashmiProject/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
-
-      - name: Run Tests with SpecFlow Filter
-        run: dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --no-build --verbosity normal
-
-      # Debugging: List Extent Report & Screenshot Directories
-      - name: List Files in TestResults/Screenshots
-        run: ls -la "${GITHUB_WORKSPACE}/TestResults/Screenshots"
-
-      - name: List Files in TestResults/ExtentReports
-        run: ls -la "${GITHUB_WORKSPACE}/TestResults/ExtentReports"
-
-      # Ensure Extent Report Exists
-      - name: Check for Extent Report
+      - name: Run HappyFlow Tests
         run: |
-          report_file="${GITHUB_WORKSPACE}/TestResults/ExtentReports/extent_report.html"
-          if [ -f "$report_file" ]; then
-            echo "Extent report file exists: $report_file"
-          else
-            echo "Extent report file not found."
-            exit 1
-          fi
+          dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --no-build --verbosity normal
 
       # Upload Extent Report as Artifact
       - name: Upload Extent Report
@@ -66,16 +46,14 @@ jobs:
           server_port: 587
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: "Test Failed - Screenshot & Extent Report Attached"
+          subject: "HappyFlow Test Failed - Report Attached"
           body: |
-            Hello Developer,
-            One or more tests have failed. Please find the screenshot and Extent Report attached.
-            Regards,
-            GitHub Actions
+            Hello Ankith,
+            The **HappyFlow** test has **failed**. Please check the attached Extent Report.
+            Regards, GitHub Actions
           to: "ankiamin77@gmail.com"
           from: ${{ secrets.GMAIL_USERNAME }}
           attachments: |
-            ${{ github.workspace }}/TestResults/Screenshots/*
             ${{ github.workspace }}/TestResults/ExtentReports/extent_report.html
 
       # Send Email on Success
@@ -87,19 +65,19 @@ jobs:
           server_port: 587
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: "Test Passed - Extent Report Attached"
+          subject: "HappyFlow Test Passed - Report Attached"
           body: |
-            Hello Developer,
-            All tests passed successfully. Please find the Extent Report attached.
-            Regards,
-            GitHub Actions
+            Hello Ankith,
+            The **HappyFlow** test has **passed** successfully! 🎉
+            Please check the attached Extent Report.
+            Regards, GitHub Actions
           to: "ankiamin77@gmail.com"
           from: ${{ secrets.GMAIL_USERNAME }}
           attachments: |
             ${{ github.workspace }}/TestResults/ExtentReports/extent_report.html
 
-      # Cleanup Step (Executes Always)
-      - name: Cleanup Test Reports & Logs
+      # Cleanup Test Reports
+      - name: Cleanup Test Reports
         if: always()
         run: |
           echo "Cleaning up test artifacts..."
