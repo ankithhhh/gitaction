@@ -1,5 +1,4 @@
 name: Run Automation Tests & Send Report
-
 on:
   push:
     branches:
@@ -14,7 +13,6 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run'
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -33,16 +31,23 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Delete Old Reports (if exist)
-        run: rm -rf TestReports/ExtentReport.html || true
+        run: rm -rf TestReports/* || true
 
       - name: Run SpecFlow Tests
         run: dotnet test --filter FullyQualifiedName~Happyflow
         continue-on-error: true
 
+      - name: Debug: List Files & Check Report Path
+        run: |
+          echo "Listing all files and directories:"
+          ls -R
+          echo "Checking TestReports directory:"
+          ls -R TestReports || echo "TestReports directory does not exist!"
+
       - name: Locate Extent Report
         id: find-report
         run: |
-          sleep 10  # Allow time for report generation
+          sleep 20  # Allow time for report generation
           REPORT_PATH="TestReports/ExtentReport.html"
 
           if [[ ! -f "$REPORT_PATH" ]]; then
@@ -53,7 +58,7 @@ jobs:
           echo "Found report at: $REPORT_PATH"
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
 
-      - name: Send Email with Extent Report
+      - name: Send Email with Report
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -68,7 +73,7 @@ jobs:
 
             Attached is the latest test execution report generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
 
-            This report contains the results of the Happyflow test scenarios along with the embedded screenshots.
+            This report contains the results of the Happyflow test scenarios.
 
             Regards,  
             CI/CD Automation
