@@ -1,13 +1,10 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.Extensions;
 using TechTalk.SpecFlow;
 
 namespace RashmiProject.Utilities
@@ -15,168 +12,103 @@ namespace RashmiProject.Utilities
     [Binding]
     public class Hooks
     {
-        public static IWebDriver? driver;
+        private static IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
         private static ExtentReports _extent = new ExtentReports();
-        private static ExtentTest? _feature;
-        private ExtentTest? _scenario;
-        private static ExtentSparkReporter? _sparkReporter;
+        private static ExtentTest _feature = null!;
+        private ExtentTest _scenario = null!;
+        private static ExtentSparkReporter _sparkReporter = null!;
+        private static string reportPath = "";
+        private static string screenshotsDir = "";
 
         public Hooks(ScenarioContext scenarioContext)
         {
-            _scenarioContext = scenarioContext ?? throw new ArgumentNullException(nameof(scenarioContext));
+            _scenarioContext = scenarioContext;
         }
 
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
-            try
-            {
-                string reportPath = Path.Combine(Directory.GetCurrentDirectory(), "Reports", "ExtentReport.html");
-                string? reportDir = Path.GetDirectoryName(reportPath);
+            string reportsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            Directory.CreateDirectory(reportsDir);
+            reportPath = Path.Combine(reportsDir, "ExtentReport.html");
 
-                if (!string.IsNullOrEmpty(reportDir))
-                {
-                    Directory.CreateDirectory(reportDir);
-                }
+            screenshotsDir = Path.Combine(reportsDir, "Screenshots");
+            Directory.CreateDirectory(screenshotsDir);
 
-                _sparkReporter = new ExtentSparkReporter(reportPath)
-                {
-                    Config =
-                    {
-                        DocumentTitle = "Test Execution Report",
-                        ReportName = "Automation Test Results",
-                        Theme = AventStack.ExtentReports.Reporter.Config.Theme.Standard
-                    }
-                };
-
-                _extent.AttachReporter(_sparkReporter);
-                _extent.AddSystemInfo("Environment", "Testing");
-                _extent.AddSystemInfo("Browser", "Chrome");
-                _extent.AddSystemInfo("OS", Environment.OSVersion.ToString());
-
-                TestContext.Progress.WriteLine($"Report will be generated at: {reportPath}");
-            }
-            catch (Exception ex)
-            {
-                TestContext.Progress.WriteLine($"Failed to initialize extent report: {ex.Message}");
-            }
+            _sparkReporter = new ExtentSparkReporter(reportPath);
+            _extent = new ExtentReports();
+            _extent.AttachReporter(_sparkReporter);
         }
 
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
-            if (_extent != null)
-            {
-                _feature = _extent.CreateTest(featureContext.FeatureInfo.Title);
-            }
+            _feature = _extent.CreateTest(featureContext.FeatureInfo.Title);
         }
 
         [BeforeScenario]
         public void Setup()
         {
-            if (driver == null)
-            {
-                driver = new ChromeDriver();
-                driver.Manage().Window.Maximize();
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            }
-
+            _scenario = _feature.CreateNode(_scenarioContext.ScenarioInfo.Title);
             _scenarioContext["WebDriver"] = driver;
-
-            if (_feature != null)
-            {
-                _scenario = _feature.CreateNode(_scenarioContext.ScenarioInfo.Title);
-            }
         }
 
         [AfterStep]
         public void InsertReportingSteps()
         {
-            try
+            string stepText = _scenarioContext.StepContext.StepInfo.Text;
+            string screenshotBase64 = null;
+
+            if (_scenarioContext.TestError != null)
             {
-                if (_scenario == null)
-                {
-                    TestContext.Progress.WriteLine("Scenario is null. Skipping step logging.");
-                    return;
-                }
-
-                string stepText = _scenarioContext.StepContext.StepInfo.Text;
-                string screenshotPath = CaptureScreenshot(_scenarioContext.ScenarioInfo.Title, stepText);
-
-                if (_scenarioContext.TestError == null)
-                {
-                    _scenario.Log(Status.Pass, stepText);
-                }
-                else
-                {
-                    _scenario.Log(Status.Fail, stepText);
-                    _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
-
-                    if (!string.IsNullOrEmpty(screenshotPath))
-                    {
-                        _scenario.Fail("Screenshot of failure:", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
-                    }
-                }
+                screenshotBase64 = CaptureScreenshotBase64();
+                string imgTag = $"<img src='data:image/png;base64,{screenshotBase64}' width='600px' />";
+                _scenario.Log(Status.Fail, stepText + "<br>" + imgTag);
+                _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
             }
-            catch (Exception ex)
+            else
             {
-                TestContext.Progress.WriteLine($"Failed to log step: {ex.Message}");
-            }
-        }
-
-        [AfterScenario]
-        public void TearDown()
-        {
-            try
-            {
-                if (driver != null)
-                {
-                    driver.Quit();
-                    driver = null;
-                }
-
-                _extent?.Flush();
-            }
-            catch (Exception ex)
-            {
-                TestContext.Progress.WriteLine($"Error during teardown: {ex.Message}");
+                _scenario.Log(Status.Pass, stepText);
             }
         }
 
         [AfterTestRun]
         public static void AfterTestRun()
         {
-            _extent?.Flush();
+            if (driver != null)
+            {
+                driver.Quit();
+                driver.Dispose();
+                driver = null;
+            }
+
+            _extent.Flush();
         }
 
-        private string CaptureScreenshot(string scenarioName, string stepName)
-{
-    try
-    {
-        if (driver == null || driver.WindowHandles.Count == 0)
+        private string CaptureScreenshotBase64()
         {
-            TestContext.Progress.WriteLine("WebDriver is not available. Skipping screenshot.");
-            return string.Empty;
+            try
+            {
+                if (driver == null || driver.WindowHandles.Count == 0)
+                {
+                    TestContext.Progress.WriteLine("No active browser window. Skipping screenshot.");
+                    return null;
+                }
+
+                Thread.Sleep(500);
+                Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                return screenshot.AsBase64EncodedString;
+            }
+            catch (Exception ex)
+            {
+                TestContext.Progress.WriteLine($"Failed to capture screenshot: {ex.Message}");
+                return null;
+            }
         }
-
-        Thread.Sleep(500);  // Allow time for rendering
-        Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-        string screenshotBase64 = screenshot.AsBase64EncodedString;
-
-        TestContext.Progress.WriteLine($"Screenshot captured for: {scenarioName} - {stepName}");
-
-        return screenshotBase64;
-    }
-    catch (Exception ex)
-    {
-        TestContext.Progress.WriteLine($"Error capturing screenshot: {ex.Message}");
-        return string.Empty;
     }
 }
 
-    }
-}
 
 
 
