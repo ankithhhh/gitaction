@@ -1,10 +1,7 @@
-name: Run Happy Flow and Send Email
+name: HappyFlow Test Run
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
     branches:
       - master
 
@@ -13,33 +10,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0
 
-    - name: Restore Dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build Project
-      run: dotnet build --no-restore
+      - name: Build project
+        run: dotnet build --no-restore
 
-    - name: Run Happy Flow Tests
-      run: |
-        dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --no-build --verbosity normal
+      - name: Run HappyFlow tests with SpecFlow filter
+        run: dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --no-build --verbosity normal
 
-    - name: Send Email Notification
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 587
-        username: ${{ secrets.GMAIL_USERNAME }}
-        password: ${{ secrets.GMAIL_PASSWORD }}
-        subject: "GitHub Actions Notification"
-        body: "Hi"
-        to: "ankiamin77@gmail.com"
-        from: ${{ secrets.GMAIL_USERNAME }}
+      # Debugging: List contents of directories for Extent Reports
+      - name: List Files in Reports Folder
+        run: ls -la "${GITHUB_WORKSPACE}/Reports"
 
+      # Ensure Extent Report is Generated
+      - name: Check if Extent Report Exists
+        run: |
+          report_file="${GITHUB_WORKSPACE}/Reports/ExtentReport.html"
+          if [ -f "$report_file" ]; then
+            echo "Extent report exists: $report_file"
+          else
+            echo "Extent report not found. Exiting workflow."
+            exit 1
+          fi
+
+      # Upload Extent Report as an artifact
+      - name: Upload Extent Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: ExtentReport
+          path: "${GITHUB_WORKSPACE}/Reports/ExtentReport.html"
+          if-no-files-found: error
+
+      # ✅ Fix: Send email regardless of pass/fail
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.GMAIL_USERNAME }}
+          password: ${{ secrets.GMAIL_PASSWORD }}
+          subject: "HappyFlow Test Execution Report"
+          body: "Hi"
+          to: "ankiamin77@gmail.com"
+          from: ${{ secrets.GMAIL_USERNAME }}
+          attachments: "${GITHUB_WORKSPACE}/Reports/ExtentReport.html"
