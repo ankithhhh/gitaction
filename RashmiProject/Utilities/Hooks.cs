@@ -161,8 +161,7 @@ namespace RashmiProject.Utilities
                 }
 
                 Thread.Sleep(500);
-                Screenshot screenshot = driver.TakeScreenshot();
-
+                Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot(); // ✅ Fix: Explicit casting for screenshot
                 string screenshotsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
                 Directory.CreateDirectory(screenshotsFolder);
 
@@ -170,7 +169,7 @@ namespace RashmiProject.Utilities
                 string sanitizedScenarioName = new string(scenarioName.Where(c => !Path.GetInvalidFileNameChars().Contains(c)).ToArray());
 
                 string filePath = Path.Combine(screenshotsFolder, $"{sanitizedScenarioName}_{sanitizedStepName}.png");
-                screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
+                screenshot.SaveAsFile(filePath, OpenQA.Selenium.ScreenshotImageFormat.Png); // ✅ Fix: Specify correct ScreenshotImageFormat
 
                 TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
 
@@ -184,6 +183,7 @@ namespace RashmiProject.Utilities
         }
     }
 }
+
 
 
 
