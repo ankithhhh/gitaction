@@ -17,52 +17,78 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: master
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
+
       - name: Restore dependencies
         run: dotnet restore
+
       - name: Build project
         run: dotnet build --no-restore
+
       - name: Delete Old Reports (if exist)
         run: |
           find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" -delete || true
+          find . -path "*/bin/Debug/net6.0/Screenshots/*" -delete || true
+
       - name: Run SpecFlow Tests
         run: dotnet test --filter FullyQualifiedName~Happyflow
         continue-on-error: true
+
       - name: Locate Extent Report
         id: find-report
         run: |
           sleep 10  # Allow time for report generation
-          
-          # Look for the report in the expected location
+
           REPORT_PATH=$(find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" | head -n 1)
           
-          # If not found, look in any bin directory
           if [[ -z "$REPORT_PATH" ]]; then
             REPORT_PATH=$(find . -name "ExtentReport.html" | sort -r | head -n 1)
           fi
           
           if [[ -z "$REPORT_PATH" ]]; then
             echo "Report file not found!" >&2
-            find . -name "ExtentReport.html"
-            find . -path "*/bin" -type d
             exit 1
           fi
           
           echo "Found report at: $REPORT_PATH"
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
-      - name: Verify Report Exists
+
+      - name: Locate Screenshots
+        id: find-screenshots
         run: |
-          if [ -f "${{ env.REPORT_PATH }}" ]; then
-            echo "Report exists at: ${{ env.REPORT_PATH }}"
-            ls -la "${{ env.REPORT_PATH }}"
-          else
-            echo "Report file NOT found!"
+          SCREENSHOT_DIR=$(find . -type d -path "*/bin/Debug/net6.0/Screenshots" | head -n 1)
+          
+          if [[ -z "$SCREENSHOT_DIR" ]]; then
+            echo "Screenshots directory not found!"
             exit 1
           fi
-      - name: Send Email with Report
+          
+          echo "Found screenshots at: $SCREENSHOT_DIR"
+          echo "SCREENSHOT_DIR=$SCREENSHOT_DIR" >> $GITHUB_ENV
+
+      - name: Verify Report & Screenshots Exist
+        run: |
+          if [ ! -f "${{ env.REPORT_PATH }}" ]; then
+            echo "Extent report NOT found!"
+            exit 1
+          fi
+          
+          if [ ! -d "${{ env.SCREENSHOT_DIR }}" ]; then
+            echo "Screenshots directory NOT found!"
+            exit 1
+          fi
+          
+          echo "Report and screenshots found successfully."
+
+      - name: Zip Screenshots
+        run: |
+          zip -r screenshots.zip "${{ env.SCREENSHOT_DIR }}"
+
+      - name: Send Email with Report & Screenshots
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -74,11 +100,13 @@ jobs:
           subject: "Automation Test Results Report"
           body: |
             Hello,
-            
+
             Attached is the latest test execution report generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
-            
-            This report contains the results of the Happyflow test scenarios.
-            
-            Regards,
+
+            This report contains the results of the Happyflow test scenarios along with the screenshots of failed test cases.
+
+            Regards,  
             CI/CD Automation
-          attachments: ${{ env.REPORT_PATH }}
+          attachments: |
+            ${{ env.REPORT_PATH }}
+            screenshots.zip
