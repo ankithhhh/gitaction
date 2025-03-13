@@ -5,6 +5,7 @@ using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
 
 namespace RashmiProject.Utilities
@@ -12,7 +13,7 @@ namespace RashmiProject.Utilities
     [Binding]
     public class Hooks
     {
-        private static IWebDriver driver;
+        private static IWebDriver? driver;
         private readonly ScenarioContext _scenarioContext;
         private static ExtentReports _extent = new ExtentReports();
         private static ExtentTest _feature = null!;
@@ -32,12 +33,11 @@ namespace RashmiProject.Utilities
             string reportsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
             Directory.CreateDirectory(reportsDir);
             reportPath = Path.Combine(reportsDir, "ExtentReport.html");
-
+            
             screenshotsDir = Path.Combine(reportsDir, "Screenshots");
             Directory.CreateDirectory(screenshotsDir);
 
             _sparkReporter = new ExtentSparkReporter(reportPath);
-            _extent = new ExtentReports();
             _extent.AttachReporter(_sparkReporter);
         }
 
@@ -50,8 +50,11 @@ namespace RashmiProject.Utilities
         [BeforeScenario]
         public void Setup()
         {
-            _scenario = _feature.CreateNode(_scenarioContext.ScenarioInfo.Title);
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             _scenarioContext["WebDriver"] = driver;
+            _scenario = _feature.CreateNode(_scenarioContext.ScenarioInfo.Title);
         }
 
         [AfterStep]
@@ -73,16 +76,19 @@ namespace RashmiProject.Utilities
             }
         }
 
-        [AfterTestRun]
-        public static void AfterTestRun()
+        [AfterScenario]
+        public void TearDown()
         {
             if (driver != null)
             {
                 driver.Quit();
-                driver.Dispose();
                 driver = null;
             }
+        }
 
+        [AfterTestRun]
+        public static void AfterTestRun()
+        {
             _extent.Flush();
         }
 
@@ -95,7 +101,7 @@ namespace RashmiProject.Utilities
                     TestContext.Progress.WriteLine("No active browser window. Skipping screenshot.");
                     return null;
                 }
-
+                
                 Thread.Sleep(500);
                 Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
                 return screenshot.AsBase64EncodedString;
@@ -108,7 +114,6 @@ namespace RashmiProject.Utilities
         }
     }
 }
-
 
 
 
