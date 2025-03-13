@@ -1,4 +1,4 @@
-name: Run Selenium Tests & Send Report
+name: Run Selenium Tests & Send Extent Report
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch: # Allows manual triggering
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   test-and-report:
@@ -20,7 +20,7 @@ jobs:
       - name: Set Up .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0' # Change as per project
+          dotnet-version: '7.0' # Change this to match your project
 
       - name: Install ChromeDriver
         uses: browser-actions/setup-chrome@v1
@@ -34,11 +34,11 @@ jobs:
       - name: Run Tests with NUnit
         run: dotnet test --logger trx --results-directory TestResults
 
-      - name: Upload Extent Report
+      - name: Upload Extent Report as an Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ExtentReport
-          path: Reports/ExtentReport.html
+          path: Reports/ExtentReport.html  # Make sure the report is stored in this path
 
       - name: Send Email with Extent Report
         uses: dawidd6/action-send-mail@v3
@@ -48,7 +48,9 @@ jobs:
           username: ${{ secrets.SMTP_USER }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: "Selenium Test Report"
-          body: "Hello, \n\nPlease find attached the latest Selenium Extent Report."
+          body: "Hello, \n\nPlease find attached the latest Selenium Extent Report.\n\nBest Regards,\nGitHub Actions"
           to: "ankiamin77@gmail.com"
           from: "GitHub Actions"
           attachments: "Reports/ExtentReport.html"
+          secure: true
+          debug: true  # Enable debug logs if needed
