@@ -80,7 +80,8 @@ jobs:
             CI/CD Automation
           attachments: |
             ${{ env.REPORT_PATH }}
-            ${{ env.SCREENSHOT_PATH }}/*
+            $(find ${{ env.SCREENSHOT_PATH }} -type f | tr '\n' ',')
+
 
 
 
