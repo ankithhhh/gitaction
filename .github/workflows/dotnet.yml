@@ -1,71 +1,54 @@
-name: .NET Test Automation CI
+name: Run Selenium Tests & Send Report
 
 on:
   push:
-    branches: ["master"]
+    branches:
+      - main
   pull_request:
-    branches: ["master"]
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
-  build:
+  test-and-report:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Setup .NET SDK
+      - name: Set Up .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0
+          dotnet-version: '7.0' # Change as per project
 
-      - name: Restore dependencies
+      - name: Install ChromeDriver
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install Dependencies
         run: dotnet restore
 
-      - name: Build project
-        run: dotnet build --no-restore
+      - name: Build Project
+        run: dotnet build --configuration Release
 
-      - name: Give execute permissions to Selenium Manager
-        run: chmod +x RashmiProject/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
+      - name: Run Tests with NUnit
+        run: dotnet test --logger trx --results-directory TestResults
 
-      - name: Run tests with SpecFlow filter
-        run: |
-          dotnet test RashmiProject.sln \
-            --filter "FullyQualifiedName~Features.Happyflow" \
-            --no-build --verbosity normal
+      - name: Upload Extent Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: ExtentReport
+          path: Reports/ExtentReport.html
 
-      - name: List Files in TestResults/Screenshots
-        run: ls -la "${GITHUB_WORKSPACE}/TestResults/Screenshots"
-
-      - name: List Files in TestResults/ExtentReports
-        run: ls -la "${GITHUB_WORKSPACE}/TestResults/ExtentReports"
-
-      - name: Wait for Extent Report File
-        run: |
-          report_file="${GITHUB_WORKSPACE}/TestResults/ExtentReports/extent_report_$(date +'%Y-%m-%d_%H-%M-%S').html"
-          if [ -f "$report_file" ]; then
-            echo "Extent report file exists: $report_file"
-          else
-            echo "Extent report file not found."
-            exit 1
-          fi
-
-      - name: Send email notification on failure
-        if: failure()
+      - name: Send Email with Extent Report
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.GMAIL_USERNAME }}
-          password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: "Test Failed - Screenshot and Extent Report Attached"
-          body: |
-            Hello Developer,
-            One or more tests have failed. Please find the screenshot and extent report attached for your reference.
-            Regards,
-            GitHub Actions
-          to: ankiamin77@gmail.com
-          from: ${{ secrets.GMAIL_USERNAME }}
-          attachments: |
-            ${{ github.workspace }}/TestResults/Screenshots/*
-            ${{ github.workspace }}/TestResults/ExtentReports/*
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "Selenium Test Report"
+          body: "Hello, \n\nPlease find attached the latest Selenium Extent Report."
+          to: "ankiamin77@gmail.com"
+          from: "GitHub Actions"
+          attachments: "Reports/ExtentReport.html"
