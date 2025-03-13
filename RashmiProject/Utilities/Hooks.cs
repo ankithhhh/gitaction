@@ -151,37 +151,30 @@ namespace RashmiProject.Utilities
         }
 
         private string CaptureScreenshot(string scenarioName, string stepName)
+{
+    try
+    {
+        if (driver == null || driver.WindowHandles.Count == 0)
         {
-            try
-            {
-                if (driver == null || driver.WindowHandles.Count == 0)
-                {
-                    TestContext.Progress.WriteLine("WebDriver is not available. Skipping screenshot.");
-                    return string.Empty;
-                }
-
-                Thread.Sleep(500);
-                Screenshot screenshot = driver.TakeScreenshot();
-
-                string screenshotsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots");
-                Directory.CreateDirectory(screenshotsFolder);
-
-                string sanitizedStepName = new string(stepName.Where(c => !Path.GetInvalidFileNameChars().Contains(c)).ToArray());
-                string sanitizedScenarioName = new string(scenarioName.Where(c => !Path.GetInvalidFileNameChars().Contains(c)).ToArray());
-
-                string filePath = Path.Combine(screenshotsFolder, $"{sanitizedScenarioName}_{sanitizedStepName}.png");
-                screenshot.SaveAsFile(filePath, OpenQA.Selenium.ScreenshotImageFormat.Png); // ✅ Fixed the error here
-
-                TestContext.Progress.WriteLine($"Screenshot saved at: {filePath}");
-
-                return filePath;
-            }
-            catch (Exception ex)
-            {
-                TestContext.Progress.WriteLine($"Error capturing screenshot: {ex.Message}");
-                return string.Empty;
-            }
+            TestContext.Progress.WriteLine("WebDriver is not available. Skipping screenshot.");
+            return string.Empty;
         }
+
+        Thread.Sleep(500);  // Allow time for rendering
+        Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+        string screenshotBase64 = screenshot.AsBase64EncodedString;
+
+        TestContext.Progress.WriteLine($"Screenshot captured for: {scenarioName} - {stepName}");
+
+        return screenshotBase64;
+    }
+    catch (Exception ex)
+    {
+        TestContext.Progress.WriteLine($"Error capturing screenshot: {ex.Message}");
+        return string.Empty;
+    }
+}
+
     }
 }
 
