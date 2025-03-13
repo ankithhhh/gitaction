@@ -1,71 +1,52 @@
-name: Run Automation Tests & Send Report
+name: Automation Test Execution
 
 on:
   push:
     branches:
-      - master
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  run-tests:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout code
+      - name: 🛠 Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup .NET
+      - name: 🔧 Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
 
-      - name: Restore dependencies
+      - name: 📦 Restore Dependencies
         run: dotnet restore
 
-      - name: Build project
-        run: dotnet build --no-restore
+      - name: 🚀 Build Solution
+        run: dotnet build --configuration Debug
 
-      - name: Run SpecFlow Tests
-        run: dotnet test
-        continue-on-error: true
+      - name: 🧪 Run Selenium Tests
+        run: dotnet test --logger trx
 
-      - name: Locate Extent Report
-        id: find-report
-        run: |
-          sleep 5
-          REPORT_PATH=$(find . -name "ExtentReport.html" | head -n 1)
-          SCREENSHOTS_DIR=$(find . -type d -name "Screenshots" | head -n 1)
+      - name: 📂 Upload Extent Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: ExtentReport
+          path: |
+            RashmiProject/RashmiProject/bin/Debug/net6.0/Reports/ExtentReport.html
 
-          if [[ -z "$REPORT_PATH" ]]; then
-            echo "❌ Report file not found!" >&2
-            exit 1
-          fi
-
-          echo "✅ Report found at: $REPORT_PATH"
-          echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
-          echo "SCREENSHOTS_DIR=$SCREENSHOTS_DIR" >> $GITHUB_ENV
-
-      - name: Debug Report Path
-        run: |
-          echo "📌 Report Path: ${{ env.REPORT_PATH }}"
-          ls -l ${{ env.REPORT_PATH }}
-
-      - name: Send Email with Report
+      - name: 📧 Send Email with Report
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          from: "Automation <${{ secrets.EMAIL_USERNAME }}>"
+          subject: "🚀 Selenium Test Automation Report"
+          body: "Hello,\n\nFind the attached Extent Report for the latest test run.\n\nBest Regards,\nAutomation Team"
+          from: "your-email@example.com"
           to: "ankiamin77@gmail.com"
-          subject: "Test Automation Report"
-          body: |
-            Hello,
-
-            The latest automation test execution report is attached. Screenshots for failed steps are embedded.
-
-            Regards,  
-            CI/CD Automation
-          attachments: |
-            ${{ env.REPORT_PATH }}
+          attachments: RashmiProject/RashmiProject/bin/Debug/net6.0/Reports/ExtentReport.html
