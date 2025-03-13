@@ -1,85 +1,77 @@
-name: Run HappyFlow Tests & Send Report
+name: Run HappyFlow Tests and Send Report
 
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  workflow_dispatch:
 
 jobs:
-  happyflow-test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-      - name: Set Up .NET SDK
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 6.0
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0
 
-      - name: Restore Dependencies
-        run: dotnet restore
+    - name: Restore Dependencies
+      run: dotnet restore
 
-      - name: Build Project
-        run: dotnet build --no-restore
+    - name: Build Project
+      run: dotnet build --no-restore
 
-      - name: Run HappyFlow Tests
-        run: |
-          dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --no-build --verbosity normal
+    - name: Give Execute Permissions to Selenium Manager
+      run: chmod +x /home/runner/work/gitnew/gitnew/RashmiProject/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
 
-      # Upload Extent Report as Artifact
-      - name: Upload Extent Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: ExtentReport
-          path: TestResults/ExtentReports/extent_report.html
+    - name: Run HappyFlow Tests
+      run: |
+        dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --no-build --verbosity normal
 
-      # Send Email on Failure
-      - name: Send Email on Failure
-        if: failure()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.GMAIL_USERNAME }}
-          password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: "HappyFlow Test Failed - Report Attached"
-          body: |
-            Hello Ankith,
-            The **HappyFlow** test has **failed**. Please check the attached Extent Report.
-            Regards, GitHub Actions
-          to: "ankiamin77@gmail.com"
-          from: ${{ secrets.GMAIL_USERNAME }}
-          attachments: |
-            ${{ github.workspace }}/TestResults/ExtentReports/extent_report.html
+    - name: Debug: List Report and Screenshot Files
+      run: |
+        echo "Listing TestResults folder..."
+        ls -R "${GITHUB_WORKSPACE}/TestResults"
 
-      # Send Email on Success
-      - name: Send Email on Success
-        if: success()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.GMAIL_USERNAME }}
-          password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: "HappyFlow Test Passed - Report Attached"
-          body: |
-            Hello Ankith,
-            The **HappyFlow** test has **passed** successfully! 🎉
-            Please check the attached Extent Report.
-            Regards, GitHub Actions
-          to: "ankiamin77@gmail.com"
-          from: ${{ secrets.GMAIL_USERNAME }}
-          attachments: |
-            ${{ github.workspace }}/TestResults/ExtentReports/extent_report.html
+    - name: Check if Extent Report Exists
+      run: |
+        REPORT_FILE="TestResults/ExtentReports/extent_report.html"
+        if [ -f "$REPORT_FILE" ]; then
+          echo "Extent Report found at $REPORT_FILE ✅"
+        else
+          echo "❌ Extent Report not found!"
+          exit 1
+        fi
 
-      # Cleanup Test Reports
-      - name: Cleanup Test Reports
-        if: always()
-        run: |
-          echo "Cleaning up test artifacts..."
-          rm -rf TestResults/Screenshots/*
-          rm -rf TestResults/ExtentReports/*
+    - name: Fix File Permissions
+      run: chmod -R 777 TestResults
+
+    - name: Upload Extent Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: ExtentReport
+        path: TestResults/ExtentReports/extent_report.html
+
+    - name: Send Email Notification
+      if: always()  # Send email whether tests pass or fail
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.GMAIL_USERNAME }}
+        password: ${{ secrets.GMAIL_PASSWORD }}
+        subject: "Test Execution Report - HappyFlow"
+        body: |
+          Hello Developer,
+          The HappyFlow test execution has completed.
+          Please find the Extent Report attached.
+          Regards,
+          GitHub Actions
+        to: ankiamin77@gmail.com
+        from: ${{ secrets.GMAIL_USERNAME }}
+        attachments: |
+          ${{ github.workspace }}/TestResults/ExtentReports/extent_report.html
