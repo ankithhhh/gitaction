@@ -33,7 +33,9 @@ namespace RashmiProject.Utilities
             string reportsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
             Directory.CreateDirectory(reportsDir);
             reportPath = Path.Combine(reportsDir, "ExtentReport.html");
-            
+
+            Console.WriteLine($"📌 Report will be saved at: {reportPath}");  // Debugging
+
             screenshotsDir = Path.Combine(reportsDir, "Screenshots");
             Directory.CreateDirectory(screenshotsDir);
 
@@ -41,22 +43,11 @@ namespace RashmiProject.Utilities
             _extent.AttachReporter(_sparkReporter);
         }
 
-        [BeforeTestRun]
-public static void BeforeTestRun()
-{
-    string reportsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
-    Directory.CreateDirectory(reportsDir);
-    reportPath = Path.Combine(reportsDir, "ExtentReport.html");
-
-    Console.WriteLine($"📌 Report will be saved at: {reportPath}");  // Debugging
-
-    screenshotsDir = Path.Combine(reportsDir, "Screenshots");
-    Directory.CreateDirectory(screenshotsDir);
-
-    _sparkReporter = new ExtentSparkReporter(reportPath);
-    _extent.AttachReporter(_sparkReporter);
-}
-
+        [BeforeFeature]
+        public static void BeforeFeature(FeatureContext featureContext)
+        {
+            _feature = _extent.CreateTest(featureContext.FeatureInfo.Title);
+        }
 
         [BeforeScenario]
         public void Setup()
@@ -97,6 +88,7 @@ public static void BeforeTestRun()
         [AfterTestRun]
         public static void AfterTestRun()
         {
+            Console.WriteLine($"✅ Flushing Extent Report at: {reportPath}");
             _extent.Flush();
         }
 
@@ -122,6 +114,7 @@ public static void BeforeTestRun()
         }
     }
 }
+
 
 
 
