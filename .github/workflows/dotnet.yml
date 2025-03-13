@@ -69,7 +69,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           from: "Anki <${{ secrets.EMAIL_USERNAME }}>"
-          to: "havankotian6188@gmail.com"
+          to: "ankiamin77@gmail.com"
           subject: "Automation Test Results Report"
           body: |
             Hello,
