@@ -41,16 +41,22 @@ jobs:
         id: find-report
         run: |
           sleep 10
-          REPORT_PATH=$(find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" | head -n 1)
-          SCREENSHOT_PATH=$(find . -path "*/bin/Debug/net6.0/Reports/Screenshots" | head -n 1)
-
+          REPORT_PATH=$(find . -path "*/Reports/ExtentReport.html" | head -n 1)
+          SCREENSHOT_PATH=$(find . -path "*/Reports/Screenshots" | head -n 1)
+      
           if [[ -z "$REPORT_PATH" ]]; then
-            echo "Report file not found!" >&2
+            echo "❌ Report file not found!" >&2
             exit 1
           fi
-
+      
+          echo "✅ Report located at: $REPORT_PATH"
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
           echo "SCREENSHOT_PATH=$SCREENSHOT_PATH" >> $GITHUB_ENV
+      - name: Debug Report Path
+        run: |
+          echo "📌 Report Path: ${{ env.REPORT_PATH }}"
+          ls -l ${{ env.REPORT_PATH }}
+
 
       - name: Verify Report Exists
         run: |
