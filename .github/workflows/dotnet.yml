@@ -14,6 +14,7 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run'
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -31,10 +32,8 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore
 
-      - name: Delete Old Reports
-        run: |
-          find . -type f -name "ExtentReport.html" -delete
-          echo "Old reports deleted."
+      - name: Delete Old Reports (if exist)
+        run: rm -rf TestReports/ExtentReport.html || true
 
       - name: Run SpecFlow Tests
         run: dotnet test --filter FullyQualifiedName~Happyflow
@@ -43,21 +42,18 @@ jobs:
       - name: Locate Extent Report
         id: find-report
         run: |
-          sleep 15  # Allow time for report generation
-          REPORT_PATH=$(find . -type f -name "ExtentReport.html" | head -n 1)
+          sleep 10  # Allow time for report generation
+          REPORT_PATH="TestReports/ExtentReport.html"
 
-          if [[ -z "$REPORT_PATH" ]]; then
+          if [[ ! -f "$REPORT_PATH" ]]; then
             echo "Extent report NOT found!" >&2
             exit 1
           fi
-          
+
           echo "Found report at: $REPORT_PATH"
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
 
-      - name: Debug - List Report Directory Contents
-        run: ls -la $(dirname "${{ env.REPORT_PATH }}")
-
-      - name: Send Email with Report
+      - name: Send Email with Extent Report
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -72,7 +68,7 @@ jobs:
 
             Attached is the latest test execution report generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
 
-            This report contains the results of the Happyflow test scenarios along with screenshots of failed test cases.
+            This report contains the results of the Happyflow test scenarios along with the embedded screenshots.
 
             Regards,  
             CI/CD Automation
