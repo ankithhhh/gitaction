@@ -1,23 +1,18 @@
 name: Run Automation Tests & Send Report
+
 on:
   push:
     branches:
       - master
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Run Automation Tests"]
-    types:
-      - completed
 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          ref: master
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -30,61 +25,47 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore
 
-      - name: Delete Old Reports
-        run: |
-          find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" -delete || true
-
       - name: Run SpecFlow Tests
-        run: dotnet test --filter FullyQualifiedName~Happyflow
+        run: dotnet test
         continue-on-error: true
 
-      - name: Locate Extent Report and Screenshots
+      - name: Locate Extent Report
         id: find-report
         run: |
-          sleep 10
-          REPORT_PATH=$(find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" | head -n 1)
-          SCREENSHOT_PATH=$(find . -path "*/bin/Debug/net6.0/Reports/Screenshots" -type f | tr '\n' ',')
+          sleep 5
+          REPORT_PATH=$(find . -name "ExtentReport.html" | head -n 1)
+          SCREENSHOTS_DIR=$(find . -type d -name "Screenshots" | head -n 1)
 
           if [[ -z "$REPORT_PATH" ]]; then
             echo "❌ Report file not found!" >&2
             exit 1
           fi
 
-          echo "✅ Report located at: $REPORT_PATH"
+          echo "✅ Report found at: $REPORT_PATH"
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
-          echo "SCREENSHOT_PATH=$SCREENSHOT_PATH" >> $GITHUB_ENV
+          echo "SCREENSHOTS_DIR=$SCREENSHOTS_DIR" >> $GITHUB_ENV
 
       - name: Debug Report Path
         run: |
           echo "📌 Report Path: ${{ env.REPORT_PATH }}"
           ls -l ${{ env.REPORT_PATH }}
 
-      - name: Verify Report Exists
-        run: |
-          if [ -f "${{ env.REPORT_PATH }}" ]; then
-            echo "✅ Report exists at: ${{ env.REPORT_PATH }}"
-          else
-            echo "❌ Report file NOT found!"
-            exit 1
-          fi
-
-      - name: Send Email with Report and Screenshots
+      - name: Send Email with Report
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          from: "Anki <${{ secrets.EMAIL_USERNAME }}>"
+          from: "Automation <${{ secrets.EMAIL_USERNAME }}>"
           to: "ankiamin77@gmail.com"
-          subject: "Automation Test Results Report"
+          subject: "Test Automation Report"
           body: |
             Hello,
 
-            Attached is the latest test execution report. Failed test cases include screenshots.
+            The latest automation test execution report is attached. Screenshots for failed steps are embedded.
 
-            Regards,
+            Regards,  
             CI/CD Automation
           attachments: |
             ${{ env.REPORT_PATH }}
-            ${{ env.SCREENSHOT_PATH }}
