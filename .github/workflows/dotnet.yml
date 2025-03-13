@@ -1,4 +1,4 @@
-name: Automation Test Execution
+name: Automation Test - Happy Flow
 
 on:
   push:
@@ -28,8 +28,8 @@ jobs:
       - name: 🚀 Build Solution
         run: dotnet build --configuration Debug
 
-      - name: 🧪 Run Selenium Tests
-        run: dotnet test --logger trx
+      - name: 🧪 Run Only Happy Flow Tests
+        run: dotnet test --filter FullyQualifiedName~RashmiProject.Features.Happyflow
 
       - name: 📂 Upload Extent Report
         uses: actions/upload-artifact@v3
@@ -45,8 +45,8 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "🚀 Selenium Test Automation Report"
-          body: "Hello,\n\nFind the attached Extent Report for the latest test run.\n\nBest Regards,\nAutomation Team"
+          subject: "🚀 Happy Flow Test Report"
+          body: "Hello,\n\nFind the attached Extent Report for the Happy Flow test execution.\n\nBest Regards,\nAutomation Team"
           from: "your-email@example.com"
           to: "ankiamin77@gmail.com"
           attachments: RashmiProject/RashmiProject/bin/Debug/net6.0/Reports/ExtentReport.html
