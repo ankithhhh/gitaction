@@ -1,13 +1,11 @@
-name: Run Selenium Tests & Send Extent Report
+name: Run .NET Tests & Send Extent Report
 
 on:
   push:
-    branches:
-      - master  # Runs only on 'master' branch
+    branches: [ "master" ]
   pull_request:
-    branches:
-      - master  # Runs on PRs to 'master'
-  workflow_dispatch:  # Allows manual execution
+    branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
   test-and-report:
@@ -17,47 +15,93 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set Up .NET
+      - name: Set Up .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0'  # Change based on your project
+          dotnet-version: 6.0
 
-      - name: Install ChromeDriver
-        uses: browser-actions/setup-chrome@v1
-
-      - name: Install Dependencies
+      - name: Restore Dependencies
         run: dotnet restore
 
       - name: Build Project
-        run: dotnet build --configuration Release
+        run: dotnet build --no-restore
 
-      - name: Run Tests with NUnit
-        run: dotnet test --logger trx --results-directory TestResults
+      - name: Grant Execute Permissions for Selenium Manager
+        run: chmod +x /home/runner/work/gitnew/gitnew/RashmiProject/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
 
-      - name: Upload Extent Report as an Artifact
-        uses: actions/upload-artifact@v4  # Updated to v4
+      - name: Run Tests with SpecFlow Filter
+        run: dotnet test RashmiProject.sln --filter "FullyQualifiedName~Features.Happyflow" --no-build --verbosity normal
+
+      # Debugging: List Extent Report & Screenshot Directories
+      - name: List Files in TestResults/Screenshots
+        run: ls -la "${GITHUB_WORKSPACE}/TestResults/Screenshots"
+
+      - name: List Files in TestResults/ExtentReports
+        run: ls -la "${GITHUB_WORKSPACE}/TestResults/ExtentReports"
+
+      # Ensure Extent Report Exists
+      - name: Check for Extent Report
+        run: |
+          report_file="${GITHUB_WORKSPACE}/TestResults/ExtentReports/extent_report.html"
+          if [ -f "$report_file" ]; then
+            echo "Extent report file exists: $report_file"
+          else
+            echo "Extent report file not found."
+            exit 1
+          fi
+
+      # Upload Extent Report as Artifact
+      - name: Upload Extent Report
+        uses: actions/upload-artifact@v4
         with:
           name: ExtentReport
-          path: Reports/ExtentReport.html  # Ensure the correct path
+          path: TestResults/ExtentReports/extent_report.html
 
-      - name: Send Email with Extent Report
+      # Send Email on Failure
+      - name: Send Email on Failure
+        if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: ${{ secrets.SMTP_SERVER }}
-          server_port: ${{ secrets.SMTP_PORT }}
-          username: ${{ secrets.SMTP_USER }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "Selenium Test Report - $(date +'%Y-%m-%d')"
-          body: "Hello, \n\nPlease find attached the latest Selenium Extent Report.\n\nBest Regards,\nGitHub Actions"
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.GMAIL_USERNAME }}
+          password: ${{ secrets.GMAIL_PASSWORD }}
+          subject: "Test Failed - Screenshot & Extent Report Attached"
+          body: |
+            Hello Developer,
+            One or more tests have failed. Please find the screenshot and Extent Report attached.
+            Regards,
+            GitHub Actions
           to: "ankiamin77@gmail.com"
-          from: "GitHub Actions"
-          attachments: "Reports/ExtentReport.html"
-          secure: true
-          debug: true
+          from: ${{ secrets.GMAIL_USERNAME }}
+          attachments: |
+            ${{ github.workspace }}/TestResults/Screenshots/*
+            ${{ github.workspace }}/TestResults/ExtentReports/extent_report.html
 
-    post:
-      - name: Cleanup Reports & Logs
+      # Send Email on Success
+      - name: Send Email on Success
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.GMAIL_USERNAME }}
+          password: ${{ secrets.GMAIL_PASSWORD }}
+          subject: "Test Passed - Extent Report Attached"
+          body: |
+            Hello Developer,
+            All tests passed successfully. Please find the Extent Report attached.
+            Regards,
+            GitHub Actions
+          to: "ankiamin77@gmail.com"
+          from: ${{ secrets.GMAIL_USERNAME }}
+          attachments: |
+            ${{ github.workspace }}/TestResults/ExtentReports/extent_report.html
+
+      # Cleanup Step (Executes Always)
+      - name: Cleanup Test Reports & Logs
+        if: always()
         run: |
-          rm -rf Reports/*
-          rm -rf TestResults/*
-        if: always()  # Runs even if the job fails
+          echo "Cleaning up test artifacts..."
+          rm -rf TestResults/Screenshots/*
+          rm -rf TestResults/ExtentReports/*
