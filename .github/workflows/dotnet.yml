@@ -8,7 +8,6 @@ on:
     workflows: ["Run Automation Tests"]
     types:
       - completed
-
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -18,46 +17,51 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: master
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-
       - name: Restore dependencies
         run: dotnet restore
-
       - name: Build project
         run: dotnet build --no-restore
-
       - name: Delete Old Reports (if exist)
-        run: rm -rf TestReports/* || true
-
+        run: |
+          find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" -delete || true
       - name: Run SpecFlow Tests
         run: dotnet test --filter FullyQualifiedName~Happyflow
         continue-on-error: true
-
-      - name: Debug: List Files & Check Report Path
-        run: |
-          echo "Listing all files and directories:"
-          ls -R
-          echo "Checking TestReports directory:"
-          ls -R TestReports || echo "TestReports directory does not exist!"
-
       - name: Locate Extent Report
         id: find-report
         run: |
-          sleep 20  # Allow time for report generation
-          REPORT_PATH="TestReports/ExtentReport.html"
-
-          if [[ ! -f "$REPORT_PATH" ]]; then
-            echo "Extent report NOT found!" >&2
+          sleep 10  # Allow time for report generation
+          
+          # Look for the report in the expected location
+          REPORT_PATH=$(find . -path "*/bin/Debug/net6.0/Reports/ExtentReport.html" | head -n 1)
+          
+          # If not found, look in any bin directory
+          if [[ -z "$REPORT_PATH" ]]; then
+            REPORT_PATH=$(find . -name "ExtentReport.html" | sort -r | head -n 1)
+          fi
+          
+          if [[ -z "$REPORT_PATH" ]]; then
+            echo "Report file not found!" >&2
+            find . -name "ExtentReport.html"
+            find . -path "*/bin" -type d
             exit 1
           fi
-
+          
           echo "Found report at: $REPORT_PATH"
           echo "REPORT_PATH=$REPORT_PATH" >> $GITHUB_ENV
-
+      - name: Verify Report Exists
+        run: |
+          if [ -f "${{ env.REPORT_PATH }}" ]; then
+            echo "Report exists at: ${{ env.REPORT_PATH }}"
+            ls -la "${{ env.REPORT_PATH }}"
+          else
+            echo "Report file NOT found!"
+            exit 1
+          fi
       - name: Send Email with Report
         uses: dawidd6/action-send-mail@v3
         with:
@@ -70,12 +74,11 @@ jobs:
           subject: "Automation Test Results Report"
           body: |
             Hello,
-
+            
             Attached is the latest test execution report generated on ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
-
+            
             This report contains the results of the Happyflow test scenarios.
-
-            Regards,  
+            
+            Regards,
             CI/CD Automation
-          attachments: |
-            ${{ env.REPORT_PATH }}
+          attachments: ${{ env.REPORT_PATH }}
