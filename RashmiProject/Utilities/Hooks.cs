@@ -13,7 +13,7 @@ namespace RashmiProject.Utilities
     [Binding]
     public class Hooks
     {
-        private static IWebDriver? driver;
+        public static IWebDriver? driver { get; private set; } // Made public
         private readonly ScenarioContext _scenarioContext;
         private static ExtentReports _extent = new ExtentReports();
         private static ExtentTest _feature = null!;
@@ -61,12 +61,12 @@ namespace RashmiProject.Utilities
         public void InsertReportingSteps()
         {
             string stepText = _scenarioContext.StepContext.StepInfo.Text;
-            string screenshotBase64 = null;
+            string? screenshotBase64 = null;
 
             if (_scenarioContext.TestError != null)
             {
                 screenshotBase64 = CaptureScreenshotBase64();
-                string imgTag = $"<img src='data:image/png;base64,{screenshotBase64}' width='600px' />";
+                string imgTag = screenshotBase64 != null ? $"<img src='data:image/png;base64,{screenshotBase64}' width='600px' />" : "";
                 _scenario.Log(Status.Fail, stepText + "<br>" + imgTag);
                 _scenario.Log(Status.Fail, _scenarioContext.TestError.Message);
             }
@@ -79,11 +79,8 @@ namespace RashmiProject.Utilities
         [AfterScenario]
         public void TearDown()
         {
-            if (driver != null)
-            {
-                driver.Quit();
-                driver = null;
-            }
+            driver?.Quit();
+            driver = null;
         }
 
         [AfterTestRun]
@@ -92,7 +89,7 @@ namespace RashmiProject.Utilities
             _extent.Flush();
         }
 
-        private string CaptureScreenshotBase64()
+        private string? CaptureScreenshotBase64()
         {
             try
             {
